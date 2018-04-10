@@ -1,0 +1,10 @@
+<view class="page">
+  <!--页头-->
+  <view class="page__hd">
+    <text>我是头部</text>
+  </view>
+  <!--主体-->
+  <view class="page__bd">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>

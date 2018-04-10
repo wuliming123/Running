@@ -1,0 +1,39 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/dongtai/index",
+    "pages/user/me",
+    "pages/user/modiy"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "running",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar":{
+    "borderStyle":"black",
+    "backgroundColor":"",
+    "list":[
+      {
+      "pagePath":"pages/index/index",
+      "text":"首页",
+      "iconPath":"./images/home.png",
+      "selectedIconPath":"./images/home-active.png"
+      },
+      {
+        "pagePath": "pages/dongtai/index",
+        "text": "动态",
+        "iconPath": "./images/dongtai.png",
+        "selectedIconPath": "./images/dongtai-active.png"
+      },
+      {
+        "pagePath": "pages/user/me",
+        "text": "我的",
+        "iconPath": "./images/user.png",
+        "selectedIconPath": "./images/user-active.png"
+      }
+    ]
+  }
+  
+}

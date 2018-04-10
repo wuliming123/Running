@@ -1,0 +1,48 @@
+
+  <view class="head">   
+    <view><image src="{{userInfo.avatarUrl}}" bindtap="dateAvatar"></image></view>
+  </view>
+
+
+<view class="content">
+  <view class='li'>
+    <image src="../../images/user1.png"></image>
+    <input placeholder="昵称" value="{{userInfo['nickName']}}"  focus="{{nameFocus}}"  bindblur="bindBlurName" />
+  </view>
+  
+  <picker bindchange="bindPickerChangeSex" value="{{userInfo['gender']}}" range="{{sex}}">
+    <view class="picker">
+      <view class='li' bindtap=''>
+        <image src="../../images/ico-sex.png"></image>
+        <input disabled="true" value="{{sex[userInfo['gender']]}}"/>
+      </view>
+    </view>
+  </picker>
+
+  <view class='li'>
+    <image src="../../images/telephone.png"></image>
+    <input type="number" placeholder="手机号码" value="{{userInfo['phone']}}" maxlength='11' />
+  </view>
+
+  <view class='li'>
+    <image src="../../images/school.png"></image>
+    <input  placeholder="学校" value="{{userInfo['school']}}" />
+  </view>
+
+  <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
+    <view class="picker">
+      <view class='li'>
+        <image src="../../images/address.png"></image>
+        <input disabled="true" value="{{region[0]}}-{{region[1]}}-{{region[2]}}"/>
+      </view>
+    </view>
+  </picker>
+
+
+
+  <button class='weui-btn' type="primary"  size="default" disabled="{{isAbled}}"  style='width:100%;margin-top:50rpx;'>保存修改</button>
+
+</view>
+
+
+

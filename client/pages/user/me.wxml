@@ -1,0 +1,18 @@
+<view class="head">   
+    <image 
+      src="{{userInfo.avatarUrl}}"
+      bindtap="previewImg">
+    </image>
+  <text>{{userInfo.nickName}}</text>
+</view>
+
+<view class="content">   
+  <navigator class='li' url="">
+    <view class='image'><image src="../../images/home.png"></image></view>
+    <view class='txt'><text>首页</text></view>
+  </navigator>
+  <navigator class='li' url="/pages/user/modiy">
+    <view class='image'><image src="../../images/modify.png"></image></view>
+    <view class='txt'><text>修改资料</text></view>
+  </navigator>
+</view>
