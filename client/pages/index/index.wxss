@@ -105,8 +105,8 @@ page{
   margin-top: 10px;
 }
 .main-content-body-text{
-  text-indent:2em;
-  font-size: 14px;
+  text-indent:1.5rem;
+  font-size: 1rem;
 }
 .main-content-body-pic{
   display: flex;
