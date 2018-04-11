@@ -30,15 +30,13 @@ class Login extends Controller
         }else{
             return json(['code'=>0,'msg'=>'登录失败,没有携带参数','data'=>null]);
         }
-
-
     }
 
     //获取session_key openId
     private function getOpenid($code)
     {
-        $appid= "wxb36bfaeb6099b653";//这里需要修改成你的小程序aappid
-        $appSecret = "";//这里需要修改成你的小程序appSecret
+        $appid= "wxfbf34a8f78fd70c5";//这里需要修改成你的小程序aappid
+        $appSecret = "246c601b0a8181248881b92e8d60146a";//这里需要修改成你的小程序appSecret
         $url = "https://api.weixin.qq.com/sns/jscode2session?appid=".$appid."&secret=".$appSecret."&js_code=".$code."&grant_type=authorization_code";
         $data = file_get_contents($url);
         $data = json_decode($data,true);
@@ -48,7 +46,7 @@ class Login extends Controller
     //通过$session_key $encryptedData ,$vi解密用户信息
     private function getUserInfo($sessionKey,$encryptedData, $iv)
     {
-        $appid= "wxb36bfaeb6099b653";//这里需要修改成你的小程序aappid
+        $appid= "wxfbf34a8f78fd70c5";//这里需要修改成你的小程序aappid
         vendor('wxBizDataCrypt.wxBizDataCrypt');
         $pc = new \WXBizDataCrypt($appid, $sessionKey);
         $errCode = $pc->decryptData($encryptedData, $iv, $data );

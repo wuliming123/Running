@@ -1,10 +1,69 @@
 <view class="page">
   <!--页头-->
   <view class="page__hd">
-    <text>我是头部</text>
+    <swiper autoplay="true" interval="3000" duration="1500">
+      <block wx:for="{{swiperPic}}" wx:key="idx">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image"/>
+        </swiper-item>
+      </block>
+    </swiper>
   </view>
-  <!--主体-->
+  <!--body-->
   <view class="page__bd">
-    <text class="user-motto">{{motto}}</text>
+  <!--sign start  -->
+    <view class='main-title'>
+      <view class='main-title-sign'>热门目标</view>
+      <view class='weui-flex main-title-body'>
+        <view class='weui-flex__item'>
+          <image src='../../images/index-run.png'></image> 
+          <text>#一个跑步的计划#</text>  
+        </view>
+        <view class='weui-flex__item'>
+          <image src='../../images/index-fire.png'></image> 
+          <text>#一个跑步的计划#</text>  
+          </view>
+        <view class='weui-flex__item'>
+          <image src='../../images/index-todo.png'></image> 
+          <text>#一个跑步的计划#</text>  
+        </view>
+      </view>
+    </view>
+    <!--content  第一个默认热门内容-->
+    <view class='main-content' wx:for="testM">
+      <view class='main-content-title'>
+        <view class='main-content-title-head'>
+           <image src="{{userInfo.avatarUrl}}"></image>  
+          <view class='main-content-title-detail'>
+              <text>水凤仙</text>
+              <view class='main-content-title-detail-footer'>
+              <text>04-06\t</text><text>19:42\t</text><text>来自[重庆师范大学]</text>
+              </view>   
+          </view>
+        </view>
+        <view class='main-content-title-btn'>
+          <button class='other'><image src='../../images/index-other.png'></image></button>  
+          <button>+ 关注</button>  
+        </view>
+      </view>
+      <view class='main-content-body'>
+        <view class='main-content-body-text'>
+          天天都要坚持跑步天天都要坚持跑步天天都要坚持跑步天天都要坚持跑步天天都要坚持跑步天天都要坚持
+        </view>
+        <view class='main-content-body-pic'>
+          <view class='main-content-body-pic-box' wx:for="testPic">
+            <image src='http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'></image>
+          </view>
+        </view>
+      </view>
+      <!--conter footer  -->
+      <view class='main-content-footer weui-flex'>
+        <button class='weui-flex__item'><image src='../../images/index-hand.png'></image>转发</button>
+        <button class='weui-flex__item'> <image src='../../images/index-message.png'></image>566</button>
+        <button class='weui-flex__item'> <image src='../../images/index-good.png'></image>666</button> 
+      </view>
+    </view>
+    <!--conetent end  -->
   </view>
+  <!--body end  -->
 </view>

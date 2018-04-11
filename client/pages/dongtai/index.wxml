@@ -1,1 +1,11 @@
-<text>{{motto}}</text>
+ <!-- <text>{{motto}}</text>  -->
+<view class="page">
+  <!--页头-->
+  <view class="page__hd">
+  
+   </view>
+  <!--主体-->
+  <view class="page__bd">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>
