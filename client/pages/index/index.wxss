@@ -1,0 +1,148 @@
+/* 页面总配置  */
+page{
+  display: block;
+  background-color: #f3f6f8;
+  min-height: 100%;
+  font-size: 14px;
+  font-family: "微软雅黑";  
+}
+/* 轮播图模块  */
+.slide-image{
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+/* 主体内容 */
+.page__bd{
+  margin-top: 15px;
+}
+/* 热门话题模块 */
+.main-title{
+  background-color: #fff;
+  padding-bottom: 10px;
+}
+.main-title-sign{
+  display: inline-block;
+  background-color: #fff0e9;
+  color: #fc7736;
+  padding: 5px 15px 5px 15px;
+}
+.main-title-body{
+  flex-wrap: wrap;
+}
+.main-title-body>.weui-flex__item{
+  margin-left: 10px;
+  min-width: 45%;
+  max-width: 45%;
+  margin-top: 10px;
+}
+.main-title-body image{
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+}
+.main-title-body text{
+  display: inline-block;
+  margin-left: 5px;
+  color: #5e87b5;
+}
+/*需求内容模块  */
+.main-content{
+  margin-top: 15px;
+  background-color: #fff;
+}
+.main-content-title{
+  padding-left: 10px;
+  padding-top: 10px;
+  display: flex;
+}
+.main-content-title-head{
+  flex: 2;
+}
+.main-content-title-head>image{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  vertical-align: text-bottom;
+  padding-left: 3px;
+}
+.main-content-title-detail{
+  display: inline-block; 
+}
+.main-content-title-detail>text{
+  display: block;
+  padding-top: 10px;
+  padding-bottom:5px; 
+  margin-left: 10px;
+}
+.main-content-title-detail-footer{
+  font-size: 11px;
+  margin-left: 10px;
+  color:#aaaaaa;
+}
+.main-content-title-btn{
+  flex: 1;
+}
+.main-content-title-btn>button{
+  font-size:11px;
+  float: right;
+  margin-top: 10px;
+  margin-right: 5px;
+  background-color: #fff;
+  color: #11aff1;
+  line-height: 2;
+}
+.other::after{
+  border: none;
+}
+.other>image{
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+}
+.main-content-body{
+  margin-top: 10px;
+}
+.main-content-body-text{
+  text-indent:1.5rem;
+  font-size: 1rem;
+}
+.main-content-body-pic{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.main-content-body-pic-box{
+  flex: 1;
+  overflow: hidden;
+  min-height: 120px;
+  min-width: 33%;
+  max-height: 120px;
+  max-width: 33%;
+}
+.main-content-body-pic image{
+ border-left:4px solid #fff;
+ border-top: 4px solid #fff;
+}
+.main-content-footer{
+  margin-top: 20px;
+  border-top:2px dashed #ebebeb;
+}
+.main-content-footer image{
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  position: relative;
+  top: 3px;
+}
+.main-content-footer>button{
+ background-color: #fff;
+ line-height: 2.5;
+ color:#98adc0;
+ font-size: 14px;
+}
+.main-content-footer>button::after{
+  border: none;
+
+}
