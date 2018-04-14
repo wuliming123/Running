@@ -109,7 +109,8 @@ Page({
                 duration: 2000
               })
               that.setData({ [up]: res.data})
-              wx.setStorageSync('userInfo', that.data.userInfo)
+              Session.avatarUrl = res.data
+              wx.setStorageSync('userInfo', Session)
             }
           } else {
             wx.showToast({
