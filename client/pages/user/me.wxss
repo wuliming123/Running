@@ -1,46 +1,43 @@
-.head{
-display:flex;flex-direction: column;background: #efefef;width:100%;padding: 100rpx 0rpx; align-items: center;  justify-content: space-between;
+.page__hd{
+ display:flex; 
+ flex-direction: column; 
+ background: #1296db; 
+ width:100%;
+ padding: 50rpx 0rpx; 
+ align-items: center;
+ color: #fff;
+ justify-content: space-between;
 }
-.head image{
+.page__hd image{
   width:150rpx;
   height:150rpx;
   border-radius: 50%;
   margin:0 auto;
+  z-index: 9999;
+  border: 5px solid #6cc8e2;
 }
-
-
-
-
-
-
-
-
-.content{
-  display:flex;
-  flex-direction: column;
+.weui-grid__label{
+  color: #666666;
 }
-.content .li{
-  display:flex;
-  flex-direction: row;
-  height: 80rpx;
+.weui-grid__icon image{
+  width:28px;
+  height:28px;
 }
-.content .li .image{
-  width: 70rpx;
-  height: 80rpx;
-  padding-left: 20rpx;
+.bz_father{
+  position: relative;
 }
-.content .li .image image{
-  padding-top: 15rpx;
-  width: 50rpx;
-  height: 50rpx;
-}
-.content .li .txt{
-  width: 100%;
-  height: 80rpx;
-   line-height: 80rpx; 
-  border-bottom:2rpx #eee solid;
-  margin-left: 5px;
-}
-.content .li .txt text{
-  font-size: 34rpx;
+.biaozhi{
+    display: inline-block;
+    padding: .15em .4em;
+    min-width: 8px;
+    border-radius: 18px;
+    background-color: #F43530;
+    color: #FFFFFF;
+    line-height: 1.2;
+    text-align: center;
+    font-size: 12px;
+    vertical-align: middle;
+    position: absolute;
+    top: -2px;
+    right: -13px;
 }

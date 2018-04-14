@@ -18,13 +18,17 @@ class Login extends Controller
             if(!Db::name('user')->where("openid",$data['openid'])->select()){
                 $info = json_decode($this->getUserInfo($data['session_key'],$request->post('encryptedData'),$request->post('iv')),true);//把用户资料解密出来
                 if($info){
+                   $info['address']=$info['province'].$info['city'];
                    unset($info['watermark']);
+                   unset($info['province']);
+                   unset($info['country']);
+                   unset($info['city']);
+                   unset($info['language']);
                    Db::name('user')->insert($info);//把用户资料添加进表中
                 }
             }
             if (Db::name("user")->where("openid",$data['openid'])->update(["token"=>$data['session_key']])){
-                $returns = Db::name('user')->where("openid",$data['openid'])->select()[0];
-                unset($returns['openId']);
+                $returns = Db::name('user')->field('id,nickName,token,avatarUrl')->where("openid",$data['openid'])->select()[0];
                 return json(['code'=>1,'msg'=>'登录成功','data'=>$returns]);
             }
         }else{
@@ -37,8 +41,8 @@ class Login extends Controller
     //获取session_key openId
     private function getOpenid($code)
     {
-        $appid= "wxb36bfaeb6099b653";//这里需要修改成你的小程序aappid
-        $appSecret = "";//这里需要修改成你的小程序appSecret
+        $appid= "wxb36bfaeb6099b653";
+        $appSecret = "a68de58c1469396402901fc8621e6fef";
         $url = "https://api.weixin.qq.com/sns/jscode2session?appid=".$appid."&secret=".$appSecret."&js_code=".$code."&grant_type=authorization_code";
         $data = file_get_contents($url);
         $data = json_decode($data,true);
@@ -48,7 +52,7 @@ class Login extends Controller
     //通过$session_key $encryptedData ,$vi解密用户信息
     private function getUserInfo($sessionKey,$encryptedData, $iv)
     {
-        $appid= "wxb36bfaeb6099b653";//这里需要修改成你的小程序aappid
+        $appid= "wxb36bfaeb6099b653";
         vendor('wxBizDataCrypt.wxBizDataCrypt');
         $pc = new \WXBizDataCrypt($appid, $sessionKey);
         $errCode = $pc->decryptData($encryptedData, $iv, $data );

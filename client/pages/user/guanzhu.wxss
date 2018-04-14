@@ -1,0 +1,14 @@
+.head,.sex{
+  margin-right: 15px;
+  vertical-align: middle;
+}
+.head {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.sex {
+  width: 15px;
+  height: 15px;
+}
+.eachguanzhu{width:30px;height:30px;margin-right:13px;}

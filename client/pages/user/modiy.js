@@ -1,71 +1,90 @@
-// pages/user/modiy.js
-const Api = require("../../utils/api.js");
-
+const Api = require("./api/api.js")
+var Session = null
 Page({
-  /**
-   * 页面的初始数据
-   */
   data: {
     userInfo:null,
-    // index:1,
-    name:null,
-    nameFocus:false,
+    birth:'',
+    nameFocus: false,
     sex: ['保密', '男', '女'],
-    flagSex:null,
-    isAbled:true,
-    region: ['', '', ''],
+    region: ['重庆市', '重庆市', '沙坪坝区'],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    Session = wx.getStorageSync("userInfo") 
   },
   //昵称
   bindBlurName:function(e){
-    let that = this;
-    if (e.detail.value == ''){
-      wx.showModal({
-        title: '提示',
-        showCancel:false,
-        content: '请输入用户名',
-        success: function (res) {
-          if (res.confirm) {
-            // console.log('用户点击确定')
-            that.setData({ nameFocus:true})
-            return
-          }
-          that.setData({ nameFocus: false })
-        }
-      })
-    }else{
-      let up = "userInfo.nickName"  
-      if(e.detail.value != that.data.name){
-        that.setData({ [up]: e.detail.value, isAbled:false})
-      }else{
-        that.setData({ [up]: that.data.name, isAbled: true })
-      }
-    }
+    let up = 'userInfo.nickName'
+    this.setData({ [up]: e.detail.value })
   },
   //性别
   bindPickerChangeSex: function (e) {
-    let val = e.detail.value
-    if (val != this.data.flagSex){
-      let up = "userInfo.gender"  
-      this.setData({ [up]: val, isAbled:false})
-    }else{
-      let up = "userInfo.gender"
-      this.setData({ [up]: this.data.flagSex, isAbled: true })
-    }
+    let up = 'userInfo.gender'
+    this.setData({ [up]: e.detail.value })
+  },
+  //手机
+  bindBlurPhone: function (e) {
+    let up = 'userInfo.phone'
+    this.setData({ [up]: e.detail.value })
+  },
+  //qq
+  bindBlurQq: function (e) {
+    let up = 'userInfo.qq'
+    this.setData({ [up]: e.detail.value })
+  },
+  //wx
+  bindBlurWx: function (e) {
+    let up = 'userInfo.wx'
+    this.setData({ [up]: e.detail.value })
+  },
+  //学校
+  bindBlurSchool: function (e) {
+    let up = 'userInfo.school'
+    this.setData({ [up]: e.detail.value })
   },
   //地区
   bindRegionChange: function (e) {
-    let up = "userInfo.province"
-    this.setData({
-      region: e.detail.value,
-      [up]: e.detail.value.join(',')
-    })
-    //console.log(this.data.userInfo)
+    // console.log(e)
+    let temp = ''
+    if (e.detail.value[1]=='县')
+      temp = e.detail.value[0] + e.detail.value[2]
+    else
+      temp = e.detail.value[0] + e.detail.value[1] + e.detail.value[2]
+    let up = 'userInfo.address';
+    this.setData({[up]:temp})
+  },
+  //保存修改按钮
+  saveModify:function(){
+    let userinfo = this.data.userInfo
+    let that = this
+    if (userinfo.nickName==''){
+      wx.showModal({
+        title: '提示',
+        content: '昵称不能为空',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            that.setData({nameFocus:true})
+          } 
+        }
+      })
+      return
+    }
+    if (!(userinfo.wx != '' || userinfo.qq != '' || userinfo.phone != '')){
+      wx.showModal({
+        title: '提示',
+        content: '请至少输入一种联系方式',
+        showCancel: false,
+        success: function (res) {
+        }
+      })
+      return
+    }
+    let data = { "token": Session['token'], 'id': Session['id'], 'myinfo': JSON.stringify(userinfo)}
+    Api.ModifyMyInfo(data,function(){})
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -79,7 +98,7 @@ Page({
       count: 1,
       success: function (res) {
         let tempFilePaths = res.tempFilePaths//选择图片后的临时路径 console.log(tempFilePaths);
-        let session = { "token": that.data.userInfo['token'], 'id': that.data.userInfo['id'] }
+        let session = { "token": Session['token'], 'id': Session['id'] }
         Api.UpHead(tempFilePaths[0],session,function(res){
           if (res) {
             let up = "userInfo.avatarUrl"
@@ -105,51 +124,28 @@ Page({
       }
     })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
+  //生日
+  bindDateChange:function(e){
+    let that = this
+    let up ='userInfo.dateOfBirth'
+    that.setData({
+      birth: e.detail.value,
+      [up]: new Date(e.detail.value).getTime() / 1000
+    })
+  },
   onShow: function () {
-    this.setData({
-      userInfo: wx.getStorageSync("userInfo")
+    let that = this;
+    let data = { "token": Session['token'], 'id': Session['id'], 'userid': Session['id'] }
+    Api.GetUserInfo(data, function (res) {
+      if(res.code){
+        let dateOfBirth = new Date(res.data.dateOfBirth * 1000)
+        let y = dateOfBirth.getFullYear()
+        let m = dateOfBirth.getMonth() + 1
+        let d = dateOfBirth.getDate()
+        let birth = `${y}-${m < 10 ? '0' + m : m}-${d < 10 ? '0' + d : d}`
+        that.setData({ birth: birth })//通过出生日期时间戳
+        that.setData({ userInfo: res.data })
+      } 
     })
-    this.setData({
-      region: this.data.userInfo['province'].split(','),
-      name: this.data.userInfo['nickName'],
-      flagSex: this.data.userInfo['gender']
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
   }
 })

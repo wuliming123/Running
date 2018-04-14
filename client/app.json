@@ -3,7 +3,10 @@
     "pages/index/index",
     "pages/dongtai/index",
     "pages/user/me",
-    "pages/user/modiy"
+    "pages/user/modiy",
+    "pages/user/myfans",
+    "pages/user/guanzhu",
+    "pages/user/who"
   ],
   "window":{
     "backgroundTextStyle":"light",
