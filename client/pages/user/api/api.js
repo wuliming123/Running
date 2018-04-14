@@ -1,5 +1,5 @@
-const Host = 'http://localhost/wxrunapi/';
-// const Host = 'https://itliming.cn/wxrunapi/';
+// const Host = 'http://localhost/wxrunapi/';
+const Host = 'https://itliming.cn/wxrunapi/';
 //用户数据获取
 const GetUserInfo = function (data, callback) {
   wx.showLoading({
