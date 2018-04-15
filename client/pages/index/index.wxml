@@ -1,69 +1,107 @@
 <view class="page">
   <!--页头-->
   <view class="page__hd">
-    <swiper autoplay="true" interval="3000" duration="1500">
+    <view class="weui-search-bar">
+      <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+        </view>
+        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+          <icon class="weui-icon-search" type="search" size="14"></icon>
+          <view class="weui-search-bar__text">搜索</view>
+        </label>
+      </view>
+      <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+    </view>
+    <swiper indicator-dots="true" autoplay="true" interval="3000" duration="1500">
       <block wx:for="{{swiperPic}}" wx:key="idx">
         <swiper-item>
-          <image src="{{item}}" class="slide-image"/>
+          <image src="{{item}}" class="slide-image" />
         </swiper-item>
       </block>
     </swiper>
   </view>
   <!--body-->
   <view class="page__bd">
-  <!--sign start  -->
+    <!--sign start  -->
     <view class='main-title'>
       <view class='main-title-sign'>热门目标</view>
       <view class='weui-flex main-title-body'>
         <view class='weui-flex__item'>
-          <image src='../../images/index-run.png'></image> 
-          <text>#一个跑步的计划#</text>  
+          <image src='{{imagePath}}/index-run.png'></image>
+          <text>#一个跑步的计划#</text>
         </view>
         <view class='weui-flex__item'>
-          <image src='../../images/index-fire.png'></image> 
-          <text>#一个跑步的计划#</text>  
-          </view>
+          <image src='{{imagePath}}/index-fire.png'></image>
+          <text>#一个跑步的计划#</text>
+        </view>
         <view class='weui-flex__item'>
-          <image src='../../images/index-todo.png'></image> 
-          <text>#一个跑步的计划#</text>  
+          <image src='{{imagePath}}/index-todo.png'></image>
+          <text>#一个跑步的计划#</text>
         </view>
       </view>
     </view>
     <!--content  第一个默认热门内容-->
-    <view class='main-content' wx:for="testM">
+    <view class='main-content' wx:for="{{messageList}}" wx:for-item="item" wx:key="id">
       <view class='main-content-title'>
         <view class='main-content-title-head'>
-           <image src="{{userInfo.avatarUrl}}"></image>  
+          <image src="{{userInfo.avatarUrl}}"></image>
           <view class='main-content-title-detail'>
-              <text>水凤仙</text>
-              <view class='main-content-title-detail-footer'>
-              <text>04-06\t</text><text>19:42\t</text><text>来自[重庆师范大学]</text>
-              </view>   
+            <text>{{item.name}}</text>
+            <view class='main-content-title-detail-footer'>
+              <text>{{item.date}}\t</text>
+              <text>{{item.time}}\n</text>
+              <text>来自[{{item.address}}]</text>
+            </view>
           </view>
         </view>
         <view class='main-content-title-btn'>
-          <button class='other'><image src='../../images/index-other.png'></image></button>  
-          <button>+ 关注</button>  
+          <button class='other' bindtap='showDialogBtn'>
+            <image src='{{imagePath}}/index-other.png'></image>
+          </button>
         </view>
       </view>
       <view class='main-content-body'>
         <view class='main-content-body-text'>
-          天天都要坚持跑步天天都要坚持跑步天天都要坚持跑步天天都要坚持跑步天天都要坚持跑步天天都要坚持
+          {{item.content}}
         </view>
         <view class='main-content-body-pic'>
-          <view class='main-content-body-pic-box' wx:for="testPic">
-            <image src='http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'></image>
+          <view class='main-content-body-pic-box' wx:for="{{item.contentPic}}" wx:for-item="itemPic" wx:if="{{index<9}}" wx:key="id">
+            <image src='{{itemPic}}'  bindtap='viewPic' data-src='{{itemPic}}' data-id="{{item.id}}"></image>
           </view>
         </view>
       </view>
       <!--conter footer  -->
       <view class='main-content-footer weui-flex'>
-        <button class='weui-flex__item'><image src='../../images/index-hand.png'></image>转发</button>
-        <button class='weui-flex__item'> <image src='../../images/index-message.png'></image>566</button>
-        <button class='weui-flex__item'> <image src='../../images/index-good.png'></image>666</button> 
+        <button class='weui-flex__item'>
+          <image src='{{imagePath}}/index-hand.png'></image>转发</button>
+        <button class='weui-flex__item' bindtap='comment' data-id='{{item.id}}'>
+          <image src='{{imagePath}}/index-message.png'></image>{{item.message}}</button>
+        <button class='weui-flex__item' bindtap='attentionPerson' data-id="{{index}}">
+          <image wx:if="{{item.attention[0]}}" src='{{imagePath}}/index-good.png'></image>
+          <image wx:else="{{item.attention[0]}}" src='{{imagePath}}/index-good-before.png'></image>
+          {{item.attention[1]}}
+        </button>
       </view>
     </view>
     <!--conetent end  -->
   </view>
   <!--body end  -->
+</view>
+
+<!-- 自定义模态框  -->
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-title">选择</view>
+  <view class="modal-content">
+    <view class='modal-text' bindtap='hideModal'>不想看到本条</view>
+    <view class='modal-text' bindtap='hideModal'>不想看到该校友所有动态</view>
+    <view class='modal-text' bindtap='hideModal'>复制内容</view>
+    <view class='modal-text' bindtap='hideModal'>分享给朋友</view>
+    <view class='modal-text' bindtap='hideModal'>举报</view>
+  </view>
 </view>

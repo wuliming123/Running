@@ -1,0 +1,81 @@
+<view class='main-content'>
+  <view class='main-content-title'>
+    <view class='main-content-title-head'>
+      <image src="{{userInfo.avatarUrl}}"></image>
+      <view class='main-content-title-detail'>
+        <text>{{messageList.name}}</text>
+        <view class='main-content-title-detail-footer'>
+          <text>{{messageList.date}}\t</text>
+          <text>{{messageList.time}}\t</text>
+          <text>来自[{{messageList.address}}]</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='main-content-body'>
+    <view class='main-content-body-text'>
+      {{messageList.content}}
+    </view>
+    <view class='main-content-body-pic'>
+      <view class='main-content-body-pic-box' wx:for="{{messageList.contentPic}}" wx:for-item="itemPic" wx:if="{{index<9}}" wx:key="id">
+        <image src='{{itemPic}}'  bindtap='viewPic' data-src='{{itemPic}}'></image>
+      </view>
+    </view>
+  </view>
+  <!--conter footer  -->
+  <view class='main-content-footer weui-flex'>
+    <button class='weui-flex__item'>
+      <image src='{{imagePath}}/index-hand.png'></image>转发</button>
+    <button class='weui-flex__item' bindtap='haveComment'>
+      <image src='{{imagePath}}/index-message.png'></image>{{messageList.message}}</button>
+    <button class='weui-flex__item' bindtap='attentionPerson'>
+      <image wx:if="{{messageList.attention[0]}}" src='{{imagePath}}/index-good.png'></image>
+      <image wx:else="{{messageList.attention[0]}}" src='{{imagePath}}/index-good-before.png'></image>
+      {{messageList.attention[1]}}
+    </button>
+  </view>
+</view>
+<!--评论区  -->
+<view class='comment'>
+  <view class='comment-title'>
+    <text>评论 {{commentNumber}} 条</text> 
+  </view>
+  <!--回复内容  -->
+  <view class='comment-body' wx:for="{{comment}}" wx:key="{{item.id}}" bindtap='havePersonComment' data-id='{{item.id}}'>
+    <view class='comment-head'>
+      <image src="{{userInfo.avatarUrl}}"></image>
+    </view>
+    <view class='comment-content'>
+      <view class='comment-content-head'>
+        <text>{{item.name}} ({{item.id}}楼)</text>
+        <view class='comment-content-head-body'>13分钟前 来自[{{item.address}}]</view>
+      </view>
+      <view class='comment-content-body'>
+        <text>{{item.content}}</text>
+        <view wx:if="{{item.commentBody[0]}}">
+        <view class='comment-content-review'>回复@{{item.commentBody[1]}}的评论: {{item.commentBody[2]}}</view>
+        <text class='comment-content-review-sign'>查看对话</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!--底部键盘  -->
+<view class='inputBottom'>
+<image src='{{imagePath}}/emoji.png'></image>
+<input type="text" class="weui-search-bar__input" placeholder='评论的内容' focus='{{inputFocus}}'/>
+<button>回复</button>
+</view>
+
+<!-- 自定义模态框  -->
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-title">选择</view>
+  <view class="modal-content">
+    <view class='modal-text' bindtap='haveCommentOk'>回复</view>
+    <view class='modal-text' bindtap='copyContent'>复制内容</view>
+    <view class='modal-text' bindtap='hateIt'>举报</view>
+    <view class='modal-text' bindtap='hideModal'>查看对话</view>
+  </view>
+</view>
