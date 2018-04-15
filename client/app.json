@@ -1,6 +1,7 @@
 {
-  "pages":[
+  "pages":[    
     "pages/index/index",
+    "pages/index/comment",
     "pages/index/message",
     "pages/dongtai/index",
     "pages/user/me",

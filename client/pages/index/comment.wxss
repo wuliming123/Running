@@ -1,0 +1,12 @@
+/* pages/index/comment.wxss */
+page{
+  display: block;
+  background-color: #f3f6f8;
+  min-height: 100%;
+  font-size: 14px;
+  font-family: "微软雅黑";  
+}
+.btn-class{
+  margin-left: 15px;
+  margin-right: 15px;
+}

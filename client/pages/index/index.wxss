@@ -72,9 +72,12 @@ page{
 .main-content-title-detail{
   display: inline-block; 
 }
+.main-content-title-detail>image{
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+}
 .main-content-title-detail>text{
-  display: block;
-  padding-bottom:5px; 
   margin-left: 10px;
   color:#333;
 }
@@ -194,4 +197,16 @@ page{
   padding-left:32rpx;
   padding-bottom:15rpx;
   border-top: 1px solid #efefef;
+}
+
+/*添加评论按钮  */
+.commentBtn{
+  position: fixed;
+  right: 15px;
+  bottom: 10px;
+}
+
+.commentBtn image{
+  width: 40px;
+  height: 40px;
 }

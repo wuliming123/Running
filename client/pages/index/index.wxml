@@ -29,7 +29,7 @@
   <view class="page__bd">
     <!--sign start  -->
     <view class='main-title'>
-      <view class='main-title-sign'>热门目标</view>
+      <view class='main-title-sign'>官方文章</view>
       <view class='weui-flex main-title-body'>
         <view class='weui-flex__item'>
           <image src='{{imagePath}}/index-run.png'></image>
@@ -52,6 +52,8 @@
           <image src="{{userInfo.avatarUrl}}"></image>
           <view class='main-content-title-detail'>
             <text>{{item.name}}</text>
+            <image wx:if="{{item.gender}}" src='{{imagePath}}/man.png'></image>
+            <image wx:else="{{item.gender}}" src='{{imagePath}}/woman.png'></image>
             <view class='main-content-title-detail-footer'>
               <text>{{item.date}}\t</text>
               <text>{{item.time}}\n</text>
@@ -91,6 +93,11 @@
     <!--conetent end  -->
   </view>
   <!--body end  -->
+</view>
+
+<!--发表评论按钮  -->
+<view class='commentBtn' bindtap='havePlan'>
+  <image src='{{imagePath}}/index-addComment.png'></image>
 </view>
 
 <!-- 自定义模态框  -->

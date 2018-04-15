@@ -15,7 +15,7 @@ Page({
     showModal: false,  //模态框
     //主页记录 头像暂时用自己的头像代替
     messageList:[
-      {id:"1",headPic: "",name:"余鸿靖", date: "04-06", time: "19:42", address: "重庆师范大学", content: "每天都要坚持跑步呀", 
+      {id:"1",headPic: "",name:"余鸿靖",gender:0, date: "04-06", time: "19:42", address: "重庆师范大学", content: "每天都要坚持跑步呀", 
         contentPic: [
           "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1903028679,3782879263&fm=27&gp=0.jpg",
           'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2285804361,334155081&fm=27&gp=0.jpg',
@@ -24,13 +24,19 @@ Page({
         ],
         message: "566", attention: [false,666]
       },
-      {id:"2",headPic: "",name:"吴黎明", date: "03-10", time: "15:42", address: "哈佛大学", content: "每天都要坚持锻炼啊",
+      {id:"2",headPic: "",name:"吴黎明", gender:1,date: "03-10", time: "15:42", address: "哈佛大学", content: "每天都要坚持锻炼啊",
         contentPic: [
           'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
           'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=546708538,2220333639&fm=27&gp=0.jpg'
         ], message: "14", attention: [false, 333]
       }
     ]
+  },
+  // 发布主题
+  havePlan:function(){
+    wx.navigateTo({
+      url: '../index/comment'
+    })
   },
   //评论按钮
   comment:function(e){
@@ -71,6 +77,9 @@ Page({
     } catch (e) {
       console.log(e);
     }
+    this.setData({
+      messageList: this.data.messageList.reverse()
+    })
   },
   //搜索栏的四个事件
   showInput: function () {
