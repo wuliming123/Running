@@ -1,0 +1,90 @@
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-tab">
+            <view class="weui-navbar">
+                <block wx:for="{{tabs}}" wx:key="*this">
+                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                </block>
+                 <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>  
+            </view>
+            <view class="weui-tab__panel">
+                <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+
+                   <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__hd">
+                            <image class='headimage' src="{{who.avatarUrl}}" bindtap="previewImg"></image>
+                        </view>
+                        <view class="weui-cell__bd">
+                        <view>{{who.nickName}}</view>
+                        <view>
+                          <image class='sex' src="../../images/{{who.gender==1 ? 'man.png': who.gender==2 ? 'woman.png':'n.png'}}"></image>
+                          <text class='age'>{{age}}</text>
+                        </view> 
+                        </view>
+                         <view class="weui-cell__ft">
+                          <block wx:if="{{who.yiguanzhu && who.xianghuguanzhu}}">
+                            <button  bindtap="tapXianghuGuanzhu" class="weui-btn mini-btn" type="primary" plain size="mini">相互关注</button>
+                          </block>
+                          <block   wx:elif="{{who.yiguanzhu}}">
+                            <button bindtap="tapQuxiaoGuanzhu" class="weui-btn mini-btn" type="primary" plain size="mini">已关注</button>
+                          </block>
+                          <block   wx:else>
+                            <button bindtap="tapGuanzhu" class="weui-btn mini-btn" type="primary" plain size="mini">关注</button>
+                          </block>
+                         </view> 
+                    </view>
+                     <view class="weui-cell">
+                      <view class="weui-cell__hd">
+                          <image src="../../images/shengri.png" class='title'></image>
+                      </view>
+                      <view class="weui-cell__bd">生日</view>
+                      <view class="weui-cell__ft">{{birth}}</view>
+                    </view>
+                    <view class="weui-cell">
+                      <view class="weui-cell__hd">
+                          <image src="../../images/telephone.png" class='title'></image>
+                      </view>
+                      <view class="weui-cell__bd">手机</view>
+                      <view class="weui-cell__ft">{{who.phone}}</view>
+                    </view>
+                    <view class="weui-cell">
+                      <view class="weui-cell__hd">
+                          <image src="../../images/wechat.png" class='title'></image>
+                      </view>
+                      <view class="weui-cell__bd">微信</view>
+                      <view class="weui-cell__ft">{{who.wx}}</view>
+                    </view>
+                    <view class="weui-cell">
+                      <view class="weui-cell__hd">
+                          <image src="../../images/qq.png" class='title'></image>
+                      </view>
+                      <view class="weui-cell__bd">QQ</view>
+                      <view class="weui-cell__ft">{{who.qq}}</view>
+                    </view>
+                    <view class="weui-cell">
+                      <view class="weui-cell__hd">
+                          <image src="../../images/school.png" class='title'></image>
+                      </view>
+                      <view class="weui-cell__bd">学校</view>
+                      <view class="weui-cell__ft">{{who.school}}</view>
+                    </view>
+                    <view class="weui-cell">
+                      <view class="weui-cell__hd">
+                          <image src="../../images/address.png" class='title'></image>
+                      </view>
+                      <view class="weui-cell__bd">地址</view>
+                      <view class="weui-cell__ft">{{who.address}}</view>
+                    </view>
+                  </view> 
+
+            
+                </view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 1}}">选项二的内容</view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 2}}">选项三的内容</view>
+            </view>
+        </view>
+    </view>
+</view>

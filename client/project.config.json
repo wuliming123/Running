@@ -1,5 +1,8 @@
 {
 	"description": "项目配置文件。",
+	"packOptions": {
+		"ignore": []
+	},
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
@@ -8,14 +11,10 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.94",
+	"libVersion": "1.9.98",
 	"appid": "wxb36bfaeb6099b653",
-	"projectname": "%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%89%8D%E5%8F%B0",
-	"svr": "",
-	"client": "",
-	"qcloudRoot": "",
-	"miniprogramRoot": "",
-	"pluginRoot": "",
+	"projectname": "Running",
+	"isGameTourist": false,
 	"condition": {
 		"search": {
 			"current": -1,
@@ -25,11 +24,8 @@
 			"current": -1,
 			"list": []
 		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
 		"game": {
+			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {

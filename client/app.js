@@ -31,6 +31,8 @@ App({
       success: function (res) {
         // console.log('吴黎明:wx.login得到code码', res);
         wx.getUserInfo({
+          withCredentials: true,
+          lang:"zh_CN",
           success: function (userinfo) {
           //  console.log('吴黎明：wx.getUserInfo', userinfo)
             let data = {"code": res.code,"encryptedData": userinfo.encryptedData,"iv": userinfo.iv}

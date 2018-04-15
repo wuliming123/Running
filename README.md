@@ -19,7 +19,7 @@ Running —— 同城约跑平台
 * 吴黎明
     * [个人网页](http://itliming.cn/);
     * [github](https://github.com/wuliming123);<br>
-* 余鸿静
+* 余鸿靖
     * [个人网页](http://yuhongjing.cn/);
     * [github](https://github.com/yuhongjing);<br>
 * 徐敏
