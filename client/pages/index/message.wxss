@@ -1,0 +1,110 @@
+@import 'index.wxss';
+.main-content-title-head>image{
+  position: relative;
+  top: 0px;
+}
+
+/*评论区  */
+.comment{
+  margin-top: 15px;
+  background-color: #fff;
+  margin-bottom: 77px;
+}
+
+.comment-title{
+  padding: 8px 0 8px 10px;
+  font-family: "微软雅黑";
+  font-size: 24rpx;
+  border-bottom:1px solid #f3f6f8; 
+  color:#aaaaaa;
+}
+
+.comment-body{
+  display: flex;
+  border-bottom: 1px solid #f3f6f8;
+  padding-bottom: 15px;
+}
+
+.comment-head{
+  flex: 1;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.comment-head>image{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  vertical-align: text-bottom;
+  padding-left: 3px
+}
+
+.comment-content{
+  margin-top: 10px;
+}
+
+.comment-content-head>text{
+  display: block;
+  padding-bottom:5px; 
+  color: #333333;
+}
+
+.comment-content-head-body{
+  color:#aaaaaa;
+  font-size: 24rpx;
+}
+
+.comment-content{
+  flex: 4;
+  margin-right: 10px;
+}
+
+.comment-content-body{
+  margin-top: 15px;
+  color: #333333;
+}
+
+.comment-content-review{
+  background-color: #e7f8fe;
+  padding: 10px 20px 10px 10px;
+  margin-top: 15px;
+  color: #799197;
+}
+
+.comment-content-review-sign{
+  color:#11aff1;
+  float: right;
+  margin-top: 10px;
+}
+
+/*底部输入栏  */
+.inputBottom{
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: #ffffff;
+  padding:10px 0 10px ;
+  border-top: 1px solid #f3f6f8; 
+}
+
+.inputBottom image{
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.inputBottom input{
+  display: inline-block;
+  border-bottom: 1px solid #1faa10;
+  width: 60%;
+  margin-left: 10px;
+}
+
+.inputBottom button{
+  display: inline-block;
+  background-color: #1faa10;
+  color: #fff;
+  padding: 0 15px 0 15px;
+  line-height: 2.0;
+  margin-left: 5px;
+}

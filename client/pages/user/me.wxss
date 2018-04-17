@@ -14,7 +14,7 @@
   border-radius: 50%;
   margin:0 auto;
   z-index: 9999;
-  border: 5px solid #6cc8e2;
+  border: 5px solid #6cc8e2; 
 }
 .weui-grid__label{
   color: #666666;
