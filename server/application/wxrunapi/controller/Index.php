@@ -58,7 +58,7 @@ class Index extends Controller
             return json(['code'=>0,'msg'=>'修改资料失败','data'=>null]);
         }
     }
-    public function getuserinfo()//获取一个用户的某些信息，id，昵称，头像地址，电话，性别，出生日期，学校，qq，微信号，地址，我是否关注了它，是否为相互关注
+    public function getuserinfo()//获取一个用户的某些信息，id，昵称，头像地址，电话，性别，出生日期，学校，地址，我是否关注了它，是否为相互关注
     {
         $request = Request::instance();
         //查询自己被哪些人关注 结果是数组
@@ -67,7 +67,7 @@ class Index extends Controller
         //查询自己关注哪些人 结果是数组
         $arr_followed = explode(",", Db::name("followed")->field("id,followed")->where("id",$request->post("id"))->select()[0]['followed']);
         $arr_followed=array_filter($arr_followed);
-        $data = Db::name("user")->field('id,nickName,avatarUrl,phone,gender,dateOfBirth,school,qq,wx,address')->where("id",$request->post("userid"))->select()['0'];
+        $data = Db::name("user")->field('id,nickName,avatarUrl,phone,gender,dateOfBirth,school,address')->where("id",$request->post("userid"))->select()['0'];
         if($data){
             if (in_array($request->post("userid"),$arr_followed )){
                 $data['yiguanzhu'] = true;
@@ -85,7 +85,7 @@ class Index extends Controller
             return json(['code'=>0,'msg'=>'获取用户信息失败','data'=>null]);
         }
     }
-    public function getguanzhu()//查询某个人关注的人的资料，头像，昵称，性别，是否关注了我
+    public function getguanzhu()//查询某个人关注的人的id，头像，昵称，性别
     {
         try{
             $request = Request::instance();
@@ -101,44 +101,27 @@ class Index extends Controller
                         ->where("id",$request->post("userid"))
                         ->select()[0]['followed']
                 )
+//		        ->where("id","<>",$request->post("id"))
                 ->select();
-            //判断用户id为userid关注的人中，是否有和我相互关注的
-            for ($i=0;$i<count($data);$i++){
-                if (in_array($data[$i]["id"],$arr_befollowed )){
-                    $data[$i]['xianghuguanzhu'] = true;
-                }else{
-                    $data[$i]['xianghuguanzhu'] = false;
-                }
-            }
             return json(['code'=>1,'msg'=>'获取用户信息成功','data'=>$data]);
         }catch (Exception $e){
             return json(['code'=>0,'msg'=>'获取用户信息失败','data'=>[]]);
         }
 
     }
-    public function getfensi()//查询某个人的粉丝列表（id，头像，性别）他粉丝是否关注了我
+    public function getfensi()//查询某个人的粉丝列表id，昵称，头像，性别
     {
         try{
             $request = Request::instance();
             //查询userid被哪些人关注 结果是数组
             $arr_befollowed = explode(",", Db::name("followed")->field("id,beFollowed")->where("id",$request->post("userid"))->select()[0]['beFollowed']);
-            $arr_befollowed=array_filter($arr_befollowed);//清除空值
+            $arr_befollowed=array_filter($arr_befollowed);//清除数组中的空元素
             //查询用户userid的粉丝列表，有粉丝们的id，昵称，头像地址，性别
             $data = Db::name('user')
                 ->field("id,nickName,avatarUrl,gender")
                 ->where('id','IN', $arr_befollowed)
+//		        ->where('id','<>', $request->post("id"))
                 ->select();
-            //查询自己的关注
-            $arr_followed = explode(",", Db::name("followed")->field("id,followed")->where("id",$request->post("id"))->select()[0]['followed']);
-            $arr_followed=array_filter($arr_followed);//清除空值
-            //判断用户id为userid关注的人中，是否有和我相互关注的
-            for ($i=0;$i<count($data);$i++){
-                if (in_array($data[$i]["id"],$arr_followed )){
-                    $data[$i]['xianghuguanzhu'] = true;
-                }else{
-                    $data[$i]['xianghuguanzhu'] = false;
-                }
-            }
             return json(['code'=>1,'msg'=>'获取粉丝列表成功','data'=>$data]);
         }catch (Exception $e){
             return json(['code'=>0,'msg'=>'获取粉丝列表失败','data'=>[]]);

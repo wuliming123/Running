@@ -34,13 +34,13 @@
       <view class='weui-grid__label'><text>与我相关</text></view>
       
     </navigator>
-    <navigator class='weui-grid' url="/pages/user/guanzhu">
+    <navigator class='weui-grid' url="/pages/user/guanzhu?title=我的关注&userid={{userInfo.id}}">
       <view class='weui-grid__icon'>
         <image src="../../images/guanzhu.png"></image>
       </view>
       <view class='weui-grid__label'><text>我的关注</text></view>
     </navigator>
-    <navigator class='weui-grid' url="/pages/user/myfans">
+    <navigator class='weui-grid' url="/pages/user/myfans?title=我的粉丝&userid={{userInfo.id}}">
       <view class='weui-grid__icon'>
         <image src="../../images/fensi.png"></image>
       </view>

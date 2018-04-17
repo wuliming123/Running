@@ -1,8 +1,6 @@
 // const Host ='http://localhost/running/server/wxrunapi/';
 const Host = 'https://itliming.cn/wxrunapi/';
 
-//let upData = $.extend({}, SessionObj, data)//合并两个对象。
-
 const Login = function(data,callback){
   wx.showLoading({
     title: '登录中...',
@@ -24,9 +22,6 @@ const Login = function(data,callback){
     }
   })
 }
-
-
-
 module.exports= {
   Login: Login,
 }

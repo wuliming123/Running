@@ -1,30 +1,28 @@
 const Api = require("./api/api.js")
-let Seesion = null
+const App = getApp()
 Page({
   data: {
-    objUsers: []
-  },
-  //取消关注用户
-  clickOn:function(e){
-    let that = this
-    let data = { "token": Seesion['token'], 'id': Seesion['id'], 'userid': e.currentTarget.dataset.userid }
-    Api.DelGuanzhuUser(data,function(res){
-      if(res.code){
-        that.data.objUsers.splice(e.currentTarget.dataset.index, 1)
-        that.setData({ objUsers: that.data.objUsers })
-      }
-    })
+    objUsers: [],
+    userid:'',
   },
   onLoad: function (options) {
-    Seesion = wx.getStorageSync("userInfo")
-  },
-  onShow: function () {
     let that = this
-    let data = { "token": Seesion['token'], 'id': Seesion['id'], 'userid': Seesion['id'] }
+    wx.setNavigationBarTitle({
+      title: options.title//页面标题为路由参数
+    })
+    that.setData({ userid: options.userid})
+  },
+  onShow:function(){
+    let that = this
+    let data = {
+      "token": App.globalData.userInfo.token,
+      'id': App.globalData.userInfo.id,
+      'userid': that.data.userid
+    }
     Api.GetGuanzhu(data, function (res) {
       if (res.code) {
         that.setData({ objUsers: res.data })
       }
     })
-  },
+  }
 })

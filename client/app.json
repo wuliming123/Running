@@ -26,13 +26,13 @@
       },
       {
         "pagePath": "pages/dongtai/index",
-        "text": "动态",
+        "text": "空间",
         "iconPath": "./images/dongtai.png",
         "selectedIconPath": "./images/dongtai-active.png"
       },
       {
         "pagePath": "pages/user/me",
-        "text": "我的",
+        "text": "我",
         "iconPath": "./images/user.png",
         "selectedIconPath": "./images/user-active.png"
       }

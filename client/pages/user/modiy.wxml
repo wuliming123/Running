@@ -20,20 +20,12 @@
     <image src="../../images/telephone.png"></image>
     <input type="number" placeholder="手机号码" value="{{userInfo['phone']}}" maxlength='11' bindblur="bindBlurPhone" />
   </view>
-  <view class='li'>
-    <image src="../../images/qq.png"></image>
-    <input type="number" placeholder="QQ" value="{{userInfo['qq']}}" maxlength='15' bindblur="bindBlurQq" />
-  </view>
   <picker mode="date" value="{{date}}" start="1990-01-01" end="2000-01-01" bindchange="bindDateChange">
     <view class='li'>
       <image src="../../images/shengri.png"></image>
       <input placeholder="出生日期" value="{{birth}}" />
     </view>
   </picker>
-  <view class='li'>
-    <image src="../../images/wechat.png"></image>
-    <input placeholder="微信号" value="{{userInfo['wx']}}" bindblur="bindBlurWx" />
-  </view>
   <view class='li'>
     <image src="../../images/school.png"></image>
     <input placeholder="学校" value="{{userInfo['school']}}" bindblur="bindBlurSchool" />
