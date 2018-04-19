@@ -1,13 +1,13 @@
 <view class='main-content'>
   <view class='main-content-title'>
     <view class='main-content-title-head'>
-      <image src="{{userInfo.avatarUrl}}"></image>
+      <image src="{{messageList.avatarUrl}}"></image>
       <view class='main-content-title-detail'>
-        <text>{{messageList.name}}</text>
+        <text>{{messageList.nickName}}</text>
         <view class='main-content-title-detail-footer'>
           <text>{{messageList.date}}\t</text>
           <text>{{messageList.time}}\t</text>
-          <text>来自[{{messageList.address}}]</text>
+          <text>来自[{{messageList.school}}]</text>
         </view>
       </view>
     </view>
@@ -27,12 +27,12 @@
     <button class='weui-flex__item'>
       <image src='{{imagePath}}/index-hand.png'></image>转发</button>
     <button class='weui-flex__item' bindtap='haveComment'>
-      <image src='{{imagePath}}/index-message.png'></image>{{messageList.message}}</button>
-    <button class='weui-flex__item' bindtap='attentionPerson'>
-      <image wx:if="{{messageList.attention[0]}}" src='{{imagePath}}/index-good.png'></image>
-      <image wx:else="{{messageList.attention[0]}}" src='{{imagePath}}/index-good-before.png'></image>
-      {{messageList.attention[1]}}
-    </button>
+      <image src='{{imagePath}}/index-message.png'></image>{{messageList.commentNumber}}</button>
+      <button class='weui-flex__item' bindtap='goodPlan' data-id="{{messageList.planId}}" data-status="{{messageList.status}}">
+          <image wx:if="{{messageList.status}}" src='{{imagePath}}/index-good.png'></image>
+          <image wx:else="{{messageList.status}}" src='{{imagePath}}/index-good-before.png'></image>
+          {{messageList.goodNumber}}
+        </button>
   </view>
 </view>
 <!--评论区  -->

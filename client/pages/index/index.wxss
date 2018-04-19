@@ -76,6 +76,8 @@ page{
   width: 15px;
   height: 15px;
   margin-left: 10px;
+  position: relative;
+  top: 2px;
 }
 .main-content-title-detail>text{
   margin-left: 10px;

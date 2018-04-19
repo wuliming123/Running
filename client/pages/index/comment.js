@@ -1,27 +1,38 @@
 // pages/index/comment.js
+const Api = require("./api/api.js");
+let Seesion = null;
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    files: []
+    files: [], //图片
+    textValue:""
+  },
+  // 获取文本内容
+  changeValue:function(e){
+    this.setData({
+      textValue: e.detail.value
+    })
   },
   // 发布主题事件
   havePlan:function(){
-    // wx.showToast({
-    //   title: '数据加载中',
-    //   icon: 'loading',
-    //   duration: 1000
-    // }),
-      wx.navigateBack(1)
+    let content = this.data.textValue
+    let data = { "token": Seesion['token'], 'id': Seesion['id'], "content": content}
+    Api.generalPost("createPlan",data, function(res){
+      if(res.code){
+        console.log("you are right")
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    Seesion = wx.getStorageSync("userInfo");
+    
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -33,7 +44,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    try {
+      let userInfo = wx.getStorageSync('userInfo')
+      if (userInfo) {
+        this.setData({
+          userInfo: userInfo
+        })
+      }
+    } catch (e) {
+      console.log(e);
+    };
   },
 
   /**
@@ -91,3 +111,7 @@ Page({
     })
   }
 })
+
+
+
+

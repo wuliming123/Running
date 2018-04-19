@@ -1,9 +1,12 @@
 var app = getApp();
+const Api = require("./api/api.js");
+let Seesion = null;
 Page({
   data: {
     //图片地址
     imagePath: "../../images",
     userInfo: "",
+    planId:0,
     inputShowed: false, //搜索框
     showModal: false,  //模态框
     //主页记录 头像暂时用自己的头像代替
@@ -72,8 +75,8 @@ Page({
   },
   // 关注按钮
   attentionPerson: function () {
-    var attentionIcon = "messageList.attention[0]";
-    var attentionNumber = "messageList.attention[1]";
+    let attentionIcon = "messageList.attention[0]";
+    let attentionNumber = "messageList.attention[1]";
     if (this.data.messageList.attention[0]) {
       this.setData({
         [attentionIcon]: false,
@@ -87,6 +90,7 @@ Page({
     }
   },
   onShow: function () {
+    let _this = this
     try {
       let userInfo = wx.getStorageSync('userInfo')
       if (userInfo) {
@@ -97,13 +101,18 @@ Page({
     } catch (e) {
       console.log(e);
     };
-    this.setData({
-      comment: this.data.comment.reverse(),
-      commentNumber: this.data.comment.length
+    let data = { "token": Seesion['token'], 'id': Seesion['id'],"planId":this.data.planId}
+    Api.generalPost("showMessage",data,function(res){
+      _this.setData({
+        messageList:res.data
+      })
     })
   },
-  onLoad:function(options){
-    console.log(options.id)
+  onLoad: function (options){
+    Seesion = wx.getStorageSync("userInfo");
+    this.setData({
+      planId:options.planId
+    })
   },
   //模态框两个事件
   showDialogBtn: function () {

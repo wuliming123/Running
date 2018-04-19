@@ -4,7 +4,7 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd">
-            <textarea class="weui-textarea" placeholder="我们都是爱锻炼的好孩子" />
+            <textarea class="weui-textarea" placeholder="我们都是爱锻炼的好孩子" bindinput="changeValue"/>
             <view class="weui-textarea-counter">0/200</view>
           </view>
         </view>

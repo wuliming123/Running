@@ -63,5 +63,4 @@ App({
   setInfo: function (data) {   //将用户信息缓存保存
     wx.setStorageSync('userInfo', data)
   },
-
 })

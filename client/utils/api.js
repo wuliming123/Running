@@ -1,5 +1,6 @@
 // const Host ='http://localhost/running/server/wxrunapi/';
-const Host = 'https://itliming.cn/wxrunapi/';
+// const Host = 'https://itliming.cn/wxrunapi/';
+const Host = "http://localhost/running/server/public/index.php/wxrunapi/";
 
 //let upData = $.extend({}, SessionObj, data)//合并两个对象。
 

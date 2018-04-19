@@ -46,18 +46,18 @@
       </view>
     </view>
     <!--content  第一个默认热门内容-->
-    <view class='main-content' wx:for="{{messageList}}" wx:for-item="item" wx:key="id">
+    <view class='main-content' wx:for="{{messageList}}" wx:for-item="item" wx:key="{{item.planId}}">
       <view class='main-content-title'>
         <view class='main-content-title-head'>
-          <image src="{{userInfo.avatarUrl}}"></image>
+          <image src="{{item.avatarUrl}}" data-id="{{item.id}}" bindtap='gotowho'></image>
           <view class='main-content-title-detail'>
-            <text>{{item.name}}</text>
+            <text>{{item.nickName}}</text>
             <image wx:if="{{item.gender}}" src='{{imagePath}}/man.png'></image>
             <image wx:else="{{item.gender}}" src='{{imagePath}}/woman.png'></image>
             <view class='main-content-title-detail-footer'>
               <text>{{item.date}}\t</text>
               <text>{{item.time}}\n</text>
-              <text>来自[{{item.address}}]</text>
+              <text>来自[{{item.school}}]</text>
             </view>
           </view>
         </view>
@@ -81,12 +81,12 @@
       <view class='main-content-footer weui-flex'>
         <button class='weui-flex__item'>
           <image src='{{imagePath}}/index-hand.png'></image>转发</button>
-        <button class='weui-flex__item' bindtap='comment' data-id='{{item.id}}'>
-          <image src='{{imagePath}}/index-message.png'></image>{{item.message}}</button>
-        <button class='weui-flex__item' bindtap='attentionPerson' data-id="{{index}}">
-          <image wx:if="{{item.attention[0]}}" src='{{imagePath}}/index-good.png'></image>
-          <image wx:else="{{item.attention[0]}}" src='{{imagePath}}/index-good-before.png'></image>
-          {{item.attention[1]}}
+        <button class='weui-flex__item' bindtap='comment' data-id="{{item.planId}}">
+          <image src='{{imagePath}}/index-message.png'></image>{{item.commentNumber}}</button>
+        <button class='weui-flex__item' bindtap='goodPlan' data-id="{{item.planId}}" data-status="{{item.status}}" data-index='{{index}}'>
+          <image wx:if="{{item.status}}" src='{{imagePath}}/index-good.png'></image>
+          <image wx:else="{{item.status}}" src='{{imagePath}}/index-good-before.png'></image>
+          {{item.goodNumber}}
         </button>
       </view>
     </view>
