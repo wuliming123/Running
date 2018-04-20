@@ -1,9 +1,11 @@
 var app = getApp();
+const Api = require("./api/api.js");
 Page({
   data: {
     //图片地址
     imagePath: "../../images",
     userInfo: "",
+    planId:0,
     inputShowed: false, //搜索框
     showModal: false,  //模态框
     //主页记录 头像暂时用自己的头像代替
@@ -72,8 +74,8 @@ Page({
   },
   // 关注按钮
   attentionPerson: function () {
-    var attentionIcon = "messageList.attention[0]";
-    var attentionNumber = "messageList.attention[1]";
+    let attentionIcon = "messageList.attention[0]";
+    let attentionNumber = "messageList.attention[1]";
     if (this.data.messageList.attention[0]) {
       this.setData({
         [attentionIcon]: false,
@@ -87,23 +89,19 @@ Page({
     }
   },
   onShow: function () {
-    try {
-      let userInfo = wx.getStorageSync('userInfo')
-      if (userInfo) {
-        this.setData({
-          userInfo: userInfo
-        })
-      }
-    } catch (e) {
-      console.log(e);
-    };
-    this.setData({
-      comment: this.data.comment.reverse(),
-      commentNumber: this.data.comment.length
+    const _this = this
+    this.setData({ userInfo: app.globalData.userInfo })
+    let data = { "token": app.globalData.userInfo.token, 'id': app.globalData.userInfo.id,"planId":this.data.planId}
+    Api.generalPost("showMessage",data,function(res){
+      _this.setData({
+        messageList:res.data
+      })
     })
   },
-  onLoad:function(options){
-    console.log(options.id)
+  onLoad: function (options){
+    this.setData({
+      planId:options.planId
+    })
   },
   //模态框两个事件
   showDialogBtn: function () {
@@ -117,3 +115,19 @@ Page({
     });
   },
 })
+ // 关注按钮
+  // goodPlan:function(e){
+  //   let _this = this;
+  //   let id = e.currentTarget.dataset.id;//获取本动态的id
+  //   let status = e.currentTarget.dataset.status;//获取本动态的点赞状态
+  //   let index = e.currentTarget.dataset.index;//获取本动态数组下标
+  //   let messageListStatus = "messageList[" + index + "].status";
+  //   let messageListNumber = "messageList[" + index + "].goodNumber";
+  //   let data = { "token": app.globalData.userInfo.token, 'id': app.globalData.userInfo.id ,"planId":id,"status":status}
+  //   Api.generalPost("goodPlan", data, function (res){
+  //     _this.setData({
+  //       [messageListStatus]:res.data.status,
+  //       [messageListNumber]:res.data.goodNumber
+  //     })
+  //   })
+  // },

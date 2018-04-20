@@ -59,7 +59,6 @@ App({
   globalData: {
     userInfo: null
   },
-  //跳转设置页面授权
   openSetting: function () {
     var that = this
     if (wx.openSetting) {

@@ -64,8 +64,8 @@ page{
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  border: 1px solid #eee;
   vertical-align: text-bottom;
-  padding-left: 3px;
   position: relative;
   top: -10px;
 }
@@ -76,6 +76,8 @@ page{
   width: 15px;
   height: 15px;
   margin-left: 10px;
+  position: relative;
+  top: 2px;
 }
 .main-content-title-detail>text{
   margin-left: 10px;
@@ -128,8 +130,10 @@ page{
   max-width: 33%;
 }
 .main-content-body-pic image{
- border-left:4px solid #fff;
- border-top: 4px solid #fff;
+  border-left:4px solid #fff;
+  border-top: 4px solid #fff; 
+  width: 100%;
+  height: 100%;
 }
 .main-content-footer{
   margin-top: 20px;
