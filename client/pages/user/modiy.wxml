@@ -6,7 +6,7 @@
 <view class="content">
   <view class='li'>
     <image src="../../images/user1.png"></image>
-    <input placeholder="昵称" value="{{userInfo['nickName']}}" focus="{{nameFocus}}" bindblur="bindBlurName" />
+    <input placeholder="昵称" value="{{userInfo['nickName']}}" focus="{{nameFocus}}" bindblur="bindBlurName" adjust-position='true'  cursor-spacing='20' />
   </view>
   <picker bindchange="bindPickerChangeSex" value="{{userInfo['gender']}}" range="{{sex}}">
     <view class="picker">
@@ -18,7 +18,7 @@
   </picker>
   <view class='li'>
     <image src="../../images/telephone.png"></image>
-    <input type="number" placeholder="手机号码" value="{{userInfo['phone']}}" maxlength='11' bindblur="bindBlurPhone" />
+    <input type="number" placeholder="手机号码" value="{{userInfo['phone']}}" maxlength='11' bindblur="bindBlurPhone" adjust-position='true' cursor-spacing='20' />
   </view>
   <picker mode="date" value="{{date}}" start="1990-01-01" end="2000-01-01" bindchange="bindDateChange">
     <view class='li'>
@@ -28,11 +28,11 @@
   </picker>
   <view class='li'>
     <image src="../../images/school.png"></image>
-    <input placeholder="学校" value="{{userInfo['school']}}" bindblur="bindBlurSchool" />
+    <input placeholder="学校" value="{{userInfo['school']}}" bindblur="bindBlurSchool"  adjust-position='true' cursor-spacing='20' />
   </view>
   <view class='li'>
     <image src="../../images/address.png"></image>
-    <input value="{{userInfo['address']}}" placeholder="地址" />
+    <input value="{{userInfo['address']}}" placeholder="地址" disabled="true" />
     <picker mode="region" bindchange="bindRegionChange" value='{{region}}'>
       <button style='padding:0;width:50px;margin-top:5px;' class="weui-btn mini-btn" type="primary" plain size='mini'>选择</button>
     </picker>

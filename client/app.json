@@ -8,7 +8,8 @@
     "pages/user/modiy",
     "pages/user/myfans",
     "pages/user/guanzhu",
-    "pages/user/who"
+    "pages/user/who",
+    "pages/user/cropper/normal"
   ],
   "window":{
     "backgroundTextStyle":"light",

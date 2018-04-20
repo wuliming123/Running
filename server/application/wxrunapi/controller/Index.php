@@ -31,7 +31,7 @@ class Index extends Controller
             if($file = $request->file('file')) {
                 $data['id'] = $request->post("id");
                 //$file = request()->file('file');
-                $info = $file->validate(['size' => 524288, 'ext' => 'jpg,png,gif,bmp'])->move(ROOT_PATH . 'public' . DS . 'uploads');
+                $info = $file->validate(['size' => 5242880, 'ext' => 'jpg,png,gif,bmp'])->move(ROOT_PATH . 'public' . DS . 'uploads');
                 if ($info) {
                     $data['avatarUrl'] = $request->root(true) . "/uploads/" . $info->getSaveName();
                     if (Db::name("user")->update($data))
