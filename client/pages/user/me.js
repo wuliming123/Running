@@ -1,9 +1,9 @@
+const App = getApp()
 Page({
   data: {
-    userInfo: [],
+    userInfo: null,
   },
   onLoad:function(re){
-   
   },
   //预览头像
   previewImg: function () {
@@ -15,21 +15,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    try {
-      let userInfo = wx.getStorageSync('userInfo')
-      if (userInfo) {
-        this.setData({
-          userInfo: userInfo
-        })
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    this.setData({ userInfo: App.globalData.userInfo })
   },
   /**
   * 用户点击右上角分享
   */
   onShareAppMessage: function () {
-
   }
 })

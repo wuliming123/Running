@@ -1,55 +1,28 @@
 const Api = require("./api/api.js")
-let Session =null
+const App = getApp()
 Page({
   data: {
-    objUsers: []
+    objUsers: [],
+    userid:''
   },
-  //点击关注按钮
-  clickOn:function(e){
+  onLoad: function (options) { 
     let that = this
-    let data = { "token": Session['token'], 'id': Session['id'], 'userid': e.currentTarget.dataset.userid }
-    Api.AddGuanzhuUser(data, function (res) {
-      if (res.code) {
-        let up = `objUsers[${e.target.dataset.index}].xianghuguanzhu`;
-        that.setData({ [up]: true })
-      }
-    })    
-   
-  },
-  //点击取消相互关注按钮
-  clickOff: function (e) {
-    let that = this
-    let data = { "token": Session['token'], 'id': Session['id'], 'userid': e.currentTarget.dataset.userid }
-    Api.DelGuanzhuUser(data, function (res) {
-      if (res.code) {
-        let up = `objUsers[${e.target.dataset.index}].xianghuguanzhu`;
-        that.setData({ [up]: false })
-      }
+    wx.setNavigationBarTitle({
+      title: options.title//页面标题为路由参数
     })
+    that.setData({ userid: options.userid})
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  onShow:function(){
     let that = this
-    Session = wx.getStorageSync("userInfo")
-  },
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    let that = this
-    let data = { "token": Session['token'], 'id': Session['id'], 'userid': Session['id'] }
+    let data = {
+      "token": App.globalData.userInfo.token,
+      'id': App.globalData.userInfo.id,
+      'userid': that.data.userid
+    }
     Api.GetFensi(data, function (res) {
       if (res.code) {
         that.setData({ objUsers: res.data })
       }
     })
-  },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    
   }
 })

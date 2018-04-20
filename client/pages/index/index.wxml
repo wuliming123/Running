@@ -57,7 +57,8 @@
             <view class='main-content-title-detail-footer'>
               <text>{{item.date}}\t</text>
               <text>{{item.time}}\n</text>
-              <text>来自[{{item.school}}]</text>
+              <text wx:if="{{item.school}}">来自[{{item.school}}]</text>
+                <text wx:else>\n</text>  
             </view>
           </view>
         </view>
@@ -72,22 +73,17 @@
           {{item.content}}
         </view>
         <view class='main-content-body-pic'>
-          <view class='main-content-body-pic-box' wx:for="{{item.contentPic}}" wx:for-item="itemPic" wx:if="{{index<9}}" wx:key="id">
-            <image src='{{itemPic}}'  bindtap='viewPic' data-src='{{itemPic}}' data-id="{{item.id}}"></image>
-          </view>
+           <view class='main-content-body-pic-box' wx:for="{{item.indexPic}}" wx:for-item="itemPic" wx:for-index="{{index}}" wx:if="{{index<3}}" wx:key="id">
+            <image src='{{itemPic}}'  bindtap='viewPic' data-src='{{itemPic}}' data-index="{{index}}" mode="aspectFill"></image>
+          </view> 
         </view>
       </view>
       <!--conter footer  -->
       <view class='main-content-footer weui-flex'>
         <button class='weui-flex__item'>
-          <image src='{{imagePath}}/index-hand.png'></image>转发</button>
+          <image src='{{imagePath}}/index-hand.png'></image>分享</button>
         <button class='weui-flex__item' bindtap='comment' data-id="{{item.planId}}">
           <image src='{{imagePath}}/index-message.png'></image>{{item.commentNumber}}</button>
-        <button class='weui-flex__item' bindtap='goodPlan' data-id="{{item.planId}}" data-status="{{item.status}}" data-index='{{index}}'>
-          <image wx:if="{{item.status}}" src='{{imagePath}}/index-good.png'></image>
-          <image wx:else="{{item.status}}" src='{{imagePath}}/index-good-before.png'></image>
-          {{item.goodNumber}}
-        </button>
       </view>
     </view>
     <!--conetent end  -->
@@ -105,10 +101,8 @@
 <view class="modal-dialog" wx:if="{{showModal}}">
   <view class="modal-title">选择</view>
   <view class="modal-content">
-    <view class='modal-text' bindtap='hideModal'>不想看到本条</view>
-    <view class='modal-text' bindtap='hideModal'>不想看到该校友所有动态</view>
-    <view class='modal-text' bindtap='hideModal'>复制内容</view>
-    <view class='modal-text' bindtap='hideModal'>分享给朋友</view>
+    <view class='modal-text' bindtap='hideModal'>删除本条动态</view>
+    <view class='modal-text' bindtap='hideModal'>不看此条动态</view>
     <view class='modal-text' bindtap='hideModal'>举报</view>
   </view>
 </view>

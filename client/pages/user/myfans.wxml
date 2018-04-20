@@ -4,11 +4,11 @@
   <view class="page__bd">
     <block wx:if="{{!objUsers[0].avatarUrl}}">
       <view class="weui-loadmore weui-loadmore_line" style='margin-top:200px;'>
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">你还没有粉丝哟~</view>
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">还没有粉丝~</view>
         </view>
     </block>
     <view  wx:else class="weui-cells weui-cells_after-title"><!-- 点击用户可以跳转，查看用户详细资料 -->
-        <navigator wx:for="{{objUsers}}" wx:key="index" url="/pages/user/who?id={{item.id}}" class="weui-cell" hover-class="none">
+        <navigator wx:for="{{objUsers}}" wx:key="index" url="/pages/user/who?id={{item.id}}&title={{item.nickName}}的主页" class="weui-cell" hover-class="none">
             <view class="weui-cell__hd">
                 <image src="{{item.avatarUrl}}" class='head'></image>
             </view>
@@ -16,12 +16,6 @@
               <image src="../../images/{{item.gender==1 ? 'man.png': item.gender==2 ? 'woman.png':'n.png'}}" class='sex'></image>
             </view>
             <view class="weui-cell__ft">
-                <block wx:if="{{item.xianghuguanzhu}}">
-                  <button class="weui-btn mini-btn" type="primary" plain size="mini"  data-index="{{index}}" data-userid="{{item.id}}" catchtap="clickOff">相互关注</button>
-                </block>
-                <block wx:else>
-                  <button class="weui-btn mini-btn eachguanzhu" type="primary" plain size="mini"  data-index="{{index}}" data-userid="{{item.id}}" catchtap="clickOn">关注</button>
-                </block>
             </view>
         </navigator>
     </view>

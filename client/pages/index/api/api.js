@@ -1,6 +1,6 @@
 // const Host = 'http://localhost/wxrunapi/';
-// const Host = 'https://itliming.cn/wxrunapi/';
-const Host = "http://localhost/running/server/public/index.php/wxrunapi/";
+const Host = 'https://itliming.cn/wxrunapi/';
+// const Host = "http://localhost/running/server/public/index.php/wxrunapi/";
 
 //post普通数据传送
 const generalPost = function ( model ,data, callback) {
@@ -32,8 +32,29 @@ const generalPost = function ( model ,data, callback) {
   })
 }
 
-
+//修改资料页面的头像上传
+const upPic = function (data, SessionObj, callback) {
+  wx.showLoading({
+    title: '上传中...',
+  })
+  wx.uploadFile({
+    url: `${Host}Home/upPic`,
+    filePath: data,
+    name: 'file',
+    formData: SessionObj,
+    success: function (res) {
+      wx.hideLoading()
+      return typeof callback == "function" && callback(JSON.parse(res.data))
+    },
+    fail: function (error) {
+      //  console.log(error)
+      wx.hideLoading()
+      return typeof callback == "function" && callback(false)
+    }
+  })
+}
 
 module.exports = {
-  generalPost: generalPost
+  generalPost: generalPost,
+  upPic:upPic
 }

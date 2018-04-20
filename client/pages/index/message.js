@@ -1,6 +1,5 @@
 var app = getApp();
 const Api = require("./api/api.js");
-let Seesion = null;
 Page({
   data: {
     //图片地址
@@ -90,18 +89,9 @@ Page({
     }
   },
   onShow: function () {
-    let _this = this
-    try {
-      let userInfo = wx.getStorageSync('userInfo')
-      if (userInfo) {
-        this.setData({
-          userInfo: userInfo
-        })
-      }
-    } catch (e) {
-      console.log(e);
-    };
-    let data = { "token": Seesion['token'], 'id': Seesion['id'],"planId":this.data.planId}
+    const _this = this
+    this.setData({ userInfo: app.globalData.userInfo })
+    let data = { "token": app.globalData.userInfo.token, 'id': app.globalData.userInfo.id,"planId":this.data.planId}
     Api.generalPost("showMessage",data,function(res){
       _this.setData({
         messageList:res.data
@@ -109,7 +99,6 @@ Page({
     })
   },
   onLoad: function (options){
-    Seesion = wx.getStorageSync("userInfo");
     this.setData({
       planId:options.planId
     })
@@ -126,3 +115,19 @@ Page({
     });
   },
 })
+ // 关注按钮
+  // goodPlan:function(e){
+  //   let _this = this;
+  //   let id = e.currentTarget.dataset.id;//获取本动态的id
+  //   let status = e.currentTarget.dataset.status;//获取本动态的点赞状态
+  //   let index = e.currentTarget.dataset.index;//获取本动态数组下标
+  //   let messageListStatus = "messageList[" + index + "].status";
+  //   let messageListNumber = "messageList[" + index + "].goodNumber";
+  //   let data = { "token": app.globalData.userInfo.token, 'id': app.globalData.userInfo.id ,"planId":id,"status":status}
+  //   Api.generalPost("goodPlan", data, function (res){
+  //     _this.setData({
+  //       [messageListStatus]:res.data.status,
+  //       [messageListNumber]:res.data.goodNumber
+  //     })
+  //   })
+  // },

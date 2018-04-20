@@ -7,6 +7,8 @@ use think\Db;
 
 class Login extends Controller
 {
+    private $appid="wxb36bfaeb6099b653";
+    private $appSecret = "a68de58c1469396402901fc8621e6fef";
     //登录接口
     public function index()
     {
@@ -34,14 +36,14 @@ class Login extends Controller
         }else{
             return json(['code'=>0,'msg'=>'登录失败,没有携带参数','data'=>null]);
         }
+
+
     }
 
     //获取session_key openId
     private function getOpenid($code)
     {
-        $appid= "wxb36bfaeb6099b653";
-        $appSecret = "a68de58c1469396402901fc8621e6fef";
-        $url = "https://api.weixin.qq.com/sns/jscode2session?appid=".$appid."&secret=".$appSecret."&js_code=".$code."&grant_type=authorization_code";
+        $url = "https://api.weixin.qq.com/sns/jscode2session?appid=".$this->appid."&secret=".$this->appSecret."&js_code=".$code."&grant_type=authorization_code";
         $data = file_get_contents($url);
         $data = json_decode($data,true);
         return $data;
@@ -50,9 +52,8 @@ class Login extends Controller
     //通过$session_key $encryptedData ,$vi解密用户信息
     private function getUserInfo($sessionKey,$encryptedData, $iv)
     {
-        $appid= "wxb36bfaeb6099b653";
         vendor('wxBizDataCrypt.wxBizDataCrypt');
-        $pc = new \WXBizDataCrypt($appid, $sessionKey);
+        $pc = new \WXBizDataCrypt($this->appid, $sessionKey);
         $errCode = $pc->decryptData($encryptedData, $iv, $data );
         if ($errCode == 0) {
             return $data;
