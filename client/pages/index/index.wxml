@@ -47,6 +47,7 @@
     </view>
     <!--content  第一个默认热门内容-->
     <view class='main-content' wx:for="{{messageList}}" wx:for-item="item" wx:key="{{item.planId}}">
+    <view class='main-content-sign' wx:if="{{index==0}}">最新主题</view>
       <view class='main-content-title'>
         <view class='main-content-title-head'>
           <image src="{{item.avatarUrl}}" data-id="{{item.id}}" bindtap='gotowho'></image>
@@ -63,7 +64,7 @@
           </view>
         </view>
         <view class='main-content-title-btn'>
-          <button class='other' bindtap='showDialogBtn'>
+          <button class='other' bindtap='showDialogBtn' data-index="{{index}}">
             <image src='{{imagePath}}/index-other.png'></image>
           </button>
         </view>
@@ -73,9 +74,15 @@
           {{item.content}}
         </view>
         <view class='main-content-body-pic'>
-           <view class='main-content-body-pic-box' wx:for="{{item.indexPic}}" wx:for-item="itemPic" wx:for-index="{{index}}" wx:if="{{index<3}}" wx:key="id">
-            <image src='{{itemPic}}'  bindtap='viewPic' data-src='{{itemPic}}' data-index="{{index}}" mode="aspectFill"></image>
-          </view> 
+           <view class='main-content-body-pic-box' wx:for="{{item.indexPic}}" wx:for-item="itemPic" wx:for-index="picIndex" wx:if="{{picIndex<3}}" wx:key="id">
+            <image src='{{itemPic}}'  bindtap='viewPic' data-src='{{itemPic}}' data-index="{{index}}" mode="aspectFill">
+            </image>           
+          </view>
+          <view wx:if="{{messageList[index].indexPic.length > 3}}" class='otherPic' data-index="{{index}}" bindtap="showAllPic">+{{messageList[index].indexPic.length - 3}}</view>
+        </view>
+        <view class='main-content-body-address'>
+          <image src='{{imagePath}}/index-address.png'></image>
+          <text>{{item.planAddress}}</text>
         </view>
       </view>
       <!--conter footer  -->
@@ -101,8 +108,8 @@
 <view class="modal-dialog" wx:if="{{showModal}}">
   <view class="modal-title">选择</view>
   <view class="modal-content">
-    <view class='modal-text' bindtap='hideModal'>删除本条动态</view>
-    <view class='modal-text' bindtap='hideModal'>不看此条动态</view>
-    <view class='modal-text' bindtap='hideModal'>举报</view>
+    <view class='modal-text' bindtap='deleteMessage'>删除本条动态</view>
+    <view class='modal-text' bindtap='hideMessage'>不看此条动态</view>
+    <view class='modal-text' bindtap='callPolice'>举报</view>
   </view>
 </view>

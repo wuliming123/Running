@@ -68,28 +68,23 @@ Page({
           Api.upPic(picAddress, seesion, function (res) {
             if(res){
               console.log("图片上传成功")
+              success++;
             }else{
               console.log("12")
-            }
-            // if (res.code) {
-            //   success++
-            // } else {
-            //   error++
-            // }
-            
+              error++;
+            }    
           })
+          // 判断是否图片上传完毕
+          if (success + error == i){
+            wx.navigateBack();
+          }
+          
         }
       })
     
       
     
-      // if (res.code) {
-      //   wx.showToast({
-      //     title: '发布成功,上传成功图片:${success}张,上传失败图片:${error}张',
-      //     icon: 'success',
-      //     duration: 1000
-      //   });
-      // }
+     
     }
   },
   onLoad: function (options) {

@@ -52,11 +52,19 @@ page{
   margin-top: 15px;
   background-color: #fff;
 }
+.main-content-sign{
+  display: inline-block;
+  /* background-color: #fff0e9; */
+  background: linear-gradient(to bottom right, #fff0e9 , #ffffff); /* 标准的语法 */
+  color: #fc7736;
+  padding: 5px 15px 5px 15px;
+}
 .main-content-title{
   padding-left: 10px;
   padding-top: 10px;
   display: flex;
 }
+
 .main-content-title-head{
   flex: 2;
 }
@@ -135,8 +143,19 @@ page{
   width: 100%;
   height: 100%;
 }
+.main-content-body-address{
+  margin-left: 28rpx;
+  font-size: 22rpx;
+  color:#aaaaaa;
+}
+.main-content-body-address image{
+  width: 15px;
+  height:15px;
+  position: relative;
+  top: 2px;
+}
 .main-content-footer{
-  margin-top: 20px;
+  margin-top: 10px;
   border-top:1px dashed #ebebeb;
 }
 .main-content-footer image{
@@ -154,9 +173,20 @@ page{
 }
 .main-content-footer>button::after{
   border: none;
-
 }
-
+.otherPic{
+  position: absolute;
+  right: 5px;
+  width: 240rpx;
+  height: 80px;
+  display: inline-block;
+  background-color: rgba(0,0,0,0.4);
+  text-align: center;
+  color: #fff;
+  font-size: 50rpx;
+  padding-top: 37px;
+  margin-top: 3px;
+}
 
 /*模态框模块  */
 .show-btn {

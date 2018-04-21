@@ -5,6 +5,7 @@ Page({
     //图片地址
     imagePath:"../../images",
     userInfo: null,
+    index:0,
     // 轮播图
     swiperPic: [
       'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
@@ -32,6 +33,11 @@ Page({
       url: '../user/who?id=' + id
     })
   },
+  showAllPic:function(){
+    var index = e.currentTarget.dataset.index;
+    this.setData({
+    })
+  },
   //评论按钮
   comment:function(e){
     var planId = e.currentTarget.dataset.id;
@@ -39,6 +45,28 @@ Page({
     wx.navigateTo({
       url: '../index/message?planId=' + planId
     })
+  },
+  //隐藏本条动态
+  hideMessage:function(){
+    this.data.messageList.splice(this.data.index,1)
+    wx.showToast({
+      title: '隐藏动态成功',
+      icon: 'success',
+      duration: 1000
+    })
+    this.hideModal()
+    this.setData({
+      messageList:this.data.messageList
+    })
+  },
+  //举报
+  callPolice: function () {
+    wx.showToast({
+      title: '举报成功',
+      icon: 'success',
+      duration: 1000
+    })
+    this.hideModal()
   },
   onLoad: function (re) {
     const _this = this;
@@ -50,8 +78,17 @@ Page({
       })
     })
   },
-  onShow: function () {
-   
+  //下拉刷新
+  onPullDownRefresh: function () {
+    const _this = this;
+    this.setData({ userInfo: app.globalData.userInfo })
+    let data = {}
+    Api.generalPost("showPlan", data, function (res) {
+      _this.setData({
+        messageList: res.data
+      })
+    })
+    wx.stopPullDownRefresh()
   },
   //搜索栏的四个事件
   showInput: function () {
@@ -76,19 +113,16 @@ Page({
     });
   },
   //模态框两个事件
-  showDialogBtn: function () {
+  showDialogBtn: function (e) {
+    const index = e.currentTarget.dataset.index
     this.setData({
-      showModal: true
+      showModal: true,
+      index: index
     })
   },
   hideModal: function () {
     this.setData({
       showModal: false
-    });
-    wx.showToast({
-      title: '已完成',
-      icon: 'success',
-      duration: 1000
     });
   },
   //预览图片
