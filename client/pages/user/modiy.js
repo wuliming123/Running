@@ -87,33 +87,15 @@ Page({
     var that = this;
     wx.chooseImage({
       count: 1,
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
-        let tempFilePaths = res.tempFilePaths//选择图片后的临时路径 console.log(tempFilePaths);
-        let data = {"token": App.globalData.userInfo.token, 'id': App.globalData.userInfo.id}
-        Api.UpHead(tempFilePaths[0], data,function(res){
-          if (res) {
-            let up = "userInfo.avatarUrl"
-            if (res.code) {
-              wx.showToast({
-                title: '上传成功',
-                icon: 'success',
-                duration: 2000
-              })
-              that.setData({ [up]: res.data})
-              App.globalData.userInfo.avatarUrl = res.data
-              let temp = wx.getStorageSync("userInfo")
-              temp.avatarUrl = res.data
-              wx.setStorageSync('userInfo', temp)
-            }
-          } else {
-            wx.showToast({
-              title: '上传失败',
-              icon: 'loading',
-              duration: 2000
-            })
-          }
+        const src = res.tempFilePaths[0]//选择图片后的临时路径 console.log(tempFilePaths);
+        wx.redirectTo({
+          url: `./cropper/normal?src=${src}`
         })
-      }
+      },
+      fail:function(){}
     })
   },
   //生日
