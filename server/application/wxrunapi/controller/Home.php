@@ -159,14 +159,20 @@ class Home extends Controller
             ->field('nickName,answerId,avatarUrl,school,answer.id,answer.content,answer.date')
             ->order("answer.date desc")
             ->select();
-        for($i=0;$i<count($data);$i++){
-            $data[$i]["zpl"]=Db::table("running_reply")->alias("reply")
-                            ->join("running_user pinlunren","reply.id = pinlunren.id")
-                            ->join("running_user hf","reply.replyUserId = hf.id")
-                            ->where("answerId",$data[$i]["answerId"])
-                            ->field('pinlunren.nickName as pinlunren,hf.nickName as hf,reply.*')
-                            ->select();
-        }
+        //查询子评论
+        $sonData = Db::table("running_reply")->alias("reply")
+                ->join("running_answer answer","answer.answerId = reply.answerId")
+                ->join("running_user pinlunren","reply.id = pinlunren.id")
+                ->join("running_user hf","reply.replyUserId = hf.id")
+                ->where("planId",$planId)
+                ->field('pinlunren.nickName as pinlunren,hf.nickName as hf,reply.*')
+                ->select();
+        for($i=0;$i<count($data);$i++)
+            for($j=0;$j<count($sonData);$j++){
+                if($data[$i]['answerId'] == $sonData[$j]['answerId']){
+                    $data[$i]["zpl"][] = $sonData[$j];
+            }
+        };
         if($data){
             return json(['code'=>1,'msg'=>'接口测试正常','data'=>$data]);
         }else{

@@ -163,14 +163,15 @@ Page({
         res.data.forEach(function (item) {
           item.date = util.getDateBiff(item.date * 1000)
         })
-        let commentNumber = res.data.length;
-        res.data.forEach(function(item){
-          commentNumber = commentNumber + item.zpl.length
-        })
+      let commentNumber = res.data.length;
+      for(let i;i < res.data;i++){
+         commentNumber += res.data[i].zpl.length
+       }
         _this.setData({
           comment: res.data,
           commentNumber: commentNumber
         })
+
       } 
     })
   },
