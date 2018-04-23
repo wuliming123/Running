@@ -5,7 +5,7 @@ Page({
     //图片地址
     imagePath:"../../images",
     userInfo: null,
-    index:0,
+    indexPage:5,
     // 轮播图
     swiperPic: [
       'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
@@ -29,13 +29,17 @@ Page({
   //查看个人资料
   gotowho:function(e){
     var id = e.currentTarget.dataset.id;
+    var name = e.currentTarget.dataset.name;
     wx.navigateTo({
-      url: '../user/who?id=' + id
+      url: `../user/who?id=${id}&title=${name}的主页`
     })
   },
-  showAllPic:function(){
-    var index = e.currentTarget.dataset.index;
+  //显示所有图片
+  showAllPic:function(e){
+    const index = e.currentTarget.dataset.index;
+    const showPic = 'messageList['+ index+'].showPic'
     this.setData({
+      [showPic]:9
     })
   },
   //评论按钮
@@ -78,6 +82,20 @@ Page({
       })
     })
   },
+  onShow:function(){
+    if (app.globalData.fresh == 1){
+      const _this = this;
+      this.setData({ userInfo: app.globalData.userInfo })
+      let data = {}
+      Api.generalPost("showPlan", data, function (res) {
+        _this.setData({
+          messageList: res.data
+        })
+      })
+      app.globalData.fresh = 0
+    }
+    
+  },
   //下拉刷新
   onPullDownRefresh: function () {
     const _this = this;
@@ -89,6 +107,38 @@ Page({
       })
     })
     wx.stopPullDownRefresh()
+  },
+  //上拉加载
+  onReachBottom: function () {
+    if (this.data.indexPage <= this.data.messageList.length){
+      wx.showLoading({
+        title: '加载更多主题',
+        mask: 'true'
+      })
+      setTimeout(function () {
+        wx.hideLoading()
+      }, 500)
+      this.setData({
+        indexPage: this.data.indexPage + 5
+      })
+    }else{
+      wx.showLoading({
+        title: '无更多主题了',
+        mask: 'true'
+      })
+      setTimeout(function () {
+        wx.hideLoading()
+      }, 500)
+    }
+  },
+  onShareAppMessage:function(e){
+    var planId = e.currentTarget.dataset.id;
+    // console.log(planId)
+    // return{
+    //   title:"running约跑",
+    //   desc:"一个约跑的社交平台",
+    //   path:`/pages/index/message?planId=${planId}`
+    // }
   },
   //搜索栏的四个事件
   showInput: function () {

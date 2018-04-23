@@ -4,8 +4,8 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd">
-            <textarea class="weui-textarea" placeholder="我们都是爱锻炼的好孩子" bindinput="changeValue"/>
-            <view class="weui-textarea-counter">0/200</view>
+            <textarea maxlength="120" class="weui-textarea" placeholder="我们都是爱锻炼的好孩子" bindinput="changeValue"/>
+            <view class="weui-textarea-counter">{{textValue.length}}/120</view>
           </view>
         </view>
       </view>
@@ -15,7 +15,7 @@
       <view class="weui-cells weui-cells_after-title">
        <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
-            <view class="weui-label">出发地</view>
+            <view class="weui-label">约跑地点</view>
           </view>
           <view class="weui-cell__bd">
             <view class="weui-input address-font" bindtap="sexDeparture">{{departure}}</view>                 
@@ -29,7 +29,7 @@
                     <view class="weui-uploader">
                         <view class="weui-uploader__hd">
                             <view class="weui-uploader__title">图片上传</view>
-                            <view class="weui-uploader__info">{{files.length}}/2</view>
+                            <view class="weui-uploader__info">{{files.length}}/9</view>
                         </view>
                         <view class="weui-uploader__bd">
                             <view class="weui-uploader__files" id="uploaderFiles">

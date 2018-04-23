@@ -9,14 +9,14 @@ Page({
     files: [], //图片
     textValue:"",
     userInfo:null,
-    departure:"请选择地址",  //地址
+    departure:"请选择约跑地点",  //地址
     planId:0
   },
   // 获取文本内容
   changeValue:function(e){
-    this.setData({
-      textValue: e.detail.value
-    })
+      this.setData({
+        textValue: e.detail.value
+      })
   },
   //选择地址
   sexDeparture: function () {
@@ -42,16 +42,6 @@ Page({
           }
         }
       });
-    }else if(this.data.departure == "请选择地址") {
-      wx.showModal({
-        content: '请选择一个地点',
-        showCancel: false,
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-          }
-        }
-      });
     }else{
       let content = this.data.textValue
       let data = { "token": app.globalData.userInfo.token, 'id': app.globalData.userInfo.id, "content": content, "planAddress": this.data.departure}
@@ -60,31 +50,31 @@ Page({
           planId:res.data
         })
         let seesion = { "token": app.globalData.userInfo.token, 'id': app.globalData.userInfo.id, 'planId': _this.data.planId }
-        let success = 0
-        let error = 0
-        for (let i = 0; i < _this.data.files.length; i++) {
-          let picAddress = _this.data.files[i];
-          // 逐个上传图片
-          Api.upPic(picAddress, seesion, function (res) {
-            if(res){
-              console.log("图片上传成功")
-              success++;
-            }else{
-              console.log("12")
-              error++;
-            }    
-          })
-          // 判断是否图片上传完毕
-          if (success + error == i){
-            wx.navigateBack();
+        console.log(_this.data.files.length)
+        if(_this.data.files.length != 0){
+          let success = 0
+          let error = 0
+          for (var i = 0; i < _this.data.files.length; i++) {
+            let picAddress = _this.data.files[i];
+            // 逐个上传图片
+            Api.upPic(picAddress, seesion, function (res) {
+              if (res) {
+                success++;
+              } else {
+                error++;
+              }
+              // 判断是否图片上传完毕
+              if (success + error == i) {
+                app.globalData.fresh = 1;
+                wx.navigateBack();
+              }
+            })
           }
-          
+        }else{
+          app.globalData.fresh = 1;
+          wx.navigateBack();
         }
-      })
-    
-      
-    
-     
+      }) 
     }
   },
   onLoad: function (options) {

@@ -16,48 +16,10 @@ page{
 .page__bd{
   margin-top: 15px;
 }
-/* 热门话题模块 */
-.main-title{
-  background-color: #fff;
-  padding-bottom: 10px;
-}
-.main-title-sign{
-  display: inline-block;
-  background-color: #fff0e9;
-  color: #fc7736;
-  padding: 5px 15px 5px 15px;
-}
-.main-title-body{
-  flex-wrap: wrap;
-}
-.main-title-body>.weui-flex__item{
-  margin-left: 10px;
-  min-width: 45%;
-  max-width: 45%;
-  margin-top: 10px;
-}
-.main-title-body image{
-  width: 32px;
-  height: 32px;
-  vertical-align: middle;
-}
-.main-title-body text{
-  display: inline-block;
-  margin-left: 5px;
-  color: #5e87b5;
-  font-size: 26rpx;
-}
 /*需求内容模块  */
 .main-content{
   margin-top: 15px;
   background-color: #fff;
-}
-.main-content-sign{
-  display: inline-block;
-  /* background-color: #fff0e9; */
-  background: linear-gradient(to bottom right, #fff0e9 , #ffffff); /* 标准的语法 */
-  color: #fc7736;
-  padding: 5px 15px 5px 15px;
 }
 .main-content-title{
   padding-left: 10px;
@@ -81,8 +43,8 @@ page{
   display: inline-block; 
 }
 .main-content-title-detail>image{
-  width: 15px;
-  height: 15px;
+  width: 24rpx;
+  height: 24rpx;
   margin-left: 10px;
   position: relative;
   top: 2px;
@@ -243,4 +205,10 @@ page{
 .commentBtn image{
   width: 40px;
   height: 40px;
+}
+
+.navigator-hover {
+    /* background-color: rgba(0, 0, 0,0);    */
+   opacity: 0.4;
+
 }

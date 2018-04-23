@@ -57,7 +57,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    fresh:0,  //页面刷新
   },
   openSetting: function () {
     var that = this

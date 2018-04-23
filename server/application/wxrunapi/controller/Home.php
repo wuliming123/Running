@@ -50,11 +50,11 @@ class Home extends Controller
     //展示主页动态
     public function showPlan()
     {
-        // $request = Request::instance();
+
         //查询首页的所有动态
         $data = Db::table("running_user")->alias("user")
             ->join("running_plan plan",'user.id = plan.id')
-            ->field('user.id,planId,nickName,avatarUrl,gender,school,content,contentPic,planAddress,date,commentNumber')
+            ->field('user.id,planId,nickName,avatarUrl,gender,school,content,contentPic,planAddress,date')
             ->order('date desc')
             ->select();
         if($data){
@@ -63,16 +63,14 @@ class Home extends Controller
                 $data[$i]['time'] = date("H:i",$data[$i]['date']);
                 $data[$i]['date'] = date("m-d",$data[$i]['date']);
                 $data[$i]["indexPic"] = explode(",",substr($data[$i]['contentPic'],0,-1));
-                // //当前用户是否点赞
-                // $good = explode(",",$data[$i]["goodFans"]);
-                // if(in_array($request->post("id"), $good))
-                // {
-                //     $data[$i]['status'] = 1;
-                // }else{
-                //     $data[$i]['status'] = 0;
-                // }
-                // // 点赞的人数
-                // $data[$i]['goodNumber'] = sizeof($good) - 1;
+                $data[$i]['showPic'] = 3;
+                // 一坨狗屎代码
+                $data[$i]['commentNumber'] = Db::name("answer")->where("planId",$data[$i]["planId"])->count();
+                $data[$i]['commentNumber'] += 
+                Db::table("running_answer")->alias("answer")
+                ->join("running_reply reply","answer.answerId = reply.answerId")        
+                ->where("planId",$data[$i]["planId"])
+                ->count();
             }
             return json(['code'=>1,'msg'=>'接口测试正常','data'=>$data]);
         }else{
@@ -120,19 +118,20 @@ class Home extends Controller
         }
     }
 
-    //动态页展示
+    //动态页内容展示
     public function showMessage()
     {
         $request = Request::instance();
         $planId = $request->post("planId");
-
+        //主题相关内容
         $data = Db::table("running_user")->alias("user")
             ->join("running_plan plan","user.id = plan.id")
             ->where("planId",$planId)
-            ->field('user.id,planId,nickName,avatarUrl,gender,school,content,date,commentNumber,goodFans')
+            ->field('user.id,planId,nickName,avatarUrl,gender,school,content,contentPic,planAddress,date,goodFans')
             ->select()[0];
         $data['time'] = date("H:i",$data['date']);
         $data['date'] = date("m-d",$data['date']);
+        $data["indexPic"] = explode(",",substr($data['contentPic'],0,-1));
         $good = explode(",",$data["goodFans"]);
         if(in_array($request->post("id"), $good))
         {
@@ -146,7 +145,74 @@ class Home extends Controller
         }else{
             return json(['code'=>0,'msg'=>'接口测试异常','data'=>null]);
         }
-        
+    }
+
+    //动态页评论展示
+    public function showComment()
+    {
+        $request = Request::instance();
+        $planId = $request->post("planId");
+        //父评论
+        $data = Db::table("running_answer")->alias("answer")
+            ->join("running_user user","user.id = answer.id")
+            ->where("planId",$planId)
+            ->field('nickName,answerId,avatarUrl,school,answer.id,answer.content,answer.date')
+            ->order("answer.date desc")
+            ->select();
+        for($i=0;$i<count($data);$i++){
+            $data[$i]["zpl"]=Db::table("running_reply")->alias("reply")
+                            ->join("running_user pinlunren","reply.id = pinlunren.id")
+                            ->join("running_user hf","reply.replyUserId = hf.id")
+                            ->where("answerId",$data[$i]["answerId"])
+                            ->field('pinlunren.nickName as pinlunren,hf.nickName as hf,reply.*')
+                            ->select();
+        }
+        if($data){
+            return json(['code'=>1,'msg'=>'接口测试正常','data'=>$data]);
+        }else{
+            return json(['code'=>1,'msg'=>'接口测试异常','data'=>null]);
+        }
+    }
+
+    //发布评论
+    public function answer()
+    {
+        $request = Request::instance();
+        $data['id'] = $request->post("id");
+        $data["planId"] = $request->post("planId");
+        $data["content"] = $request->post("content");
+        $data["date"] = time();
+        if($data["id"] && $data["planId"]){
+            $result = Db::name("answer")->insert($data);
+            if($result){
+                return json(['code' => 1,'msg' => "接口测试正常",'data'=>null]);
+            }else{
+                return json(['code'=>0,'msg'=>'回复失败','data'=>null]);
+            }
+        }else{
+            return json(['code'=>0,'msg'=>'接口测试异常','data'=>null]);
+        }
+    }
+
+    //发布子评论
+    public function reply()
+    {
+        $request = Request::instance();
+        $data['id'] = $request->post("id");//回复人Id
+        $data['replyUserId'] = $request->post("replyUserId");//回复目标Id
+        $data['answerId'] = $request->post("answerId");
+        $data['content'] = $request->post("content");
+        $data['date'] = time();
+        if($data["id"] && $data["answerId"]){
+            $result = Db::name("reply")->insert($data);
+            if($result){
+                return json(['code' => 1,'msg' => "接口测试正常",'data'=>null]);
+            }else{
+                return json(['code'=>0,'msg'=>'回复失败','data'=>null]);
+            }
+        }else{
+            return json(['code'=>0,'msg'=>'接口测试异常','data'=>null]);
+        }
     }
 
     //上传头像接口
@@ -172,4 +238,6 @@ class Home extends Controller
             return json(['code'=>0,'msg'=>'上传失败'.$e->getMessage(), 'data' => null]); // 上传失败获取错误信息
         }
     }
+
+
 }

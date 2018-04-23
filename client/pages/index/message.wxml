@@ -1,7 +1,7 @@
 <view class='main-content'>
   <view class='main-content-title'>
     <view class='main-content-title-head'>
-      <image src="{{messageList.avatarUrl}}"></image>
+      <image src="{{messageList.avatarUrl}}" data-id="{{messageList.id}}" bindtap='gotowho'  data-name="{{messageList.nickName}}"></image>
       <view class='main-content-title-detail'>
         <text>{{messageList.nickName}}</text>
         <view class='main-content-title-detail-footer'>
@@ -17,18 +17,22 @@
       {{messageList.content}}
     </view>
     <view class='main-content-body-pic'>
-      <view class='main-content-body-pic-box' wx:for="{{messageList.contentPic}}" wx:for-item="itemPic" wx:if="{{index<9}}" wx:key="id">
-        <image src='{{itemPic}}'  bindtap='viewPic' data-src='{{itemPic}}'></image>
+      <view class='main-content-body-pic-box' wx:for="{{messageList.indexPic}}" wx:for-item="itemPic" wx:if="{{index<9 && messageList.indexPic != ''}}" wx:key="id">
+        <image src='{{itemPic}}'  mode="aspectFill" bindtap='viewPic' data-src='{{itemPic}}'></image>
       </view>
     </view>
+      <view class='main-content-body-address'  wx:if="{{messageList.planAddress != '请选择约跑地点'}}">
+        <image src='{{imagePath}}/index-address.png'></image>
+        <text>{{messageList.planAddress}}</text>
+      </view>
   </view>
   <!--conter footer  -->
   <view class='main-content-footer weui-flex'>
-    <button class='weui-flex__item'>
-      <image src='{{imagePath}}/index-hand.png'></image>转发</button>
-    <button class='weui-flex__item' bindtap='haveComment'>
-      <image src='{{imagePath}}/index-message.png'></image>{{messageList.commentNumber}}</button>
-      <button class='weui-flex__item' bindtap='goodPlan' data-id="{{messageList.planId}}" data-status="{{messageList.status}}">
+    <button class='weui-flex__item' open-type='share'>
+      <image src='{{imagePath}}/index-hand.png'></image>分享</button>
+      <button class='weui-flex__item' bindtap='comment' data-id="{{messageList.planId}}">
+          <image src='{{imagePath}}/index-message.png'></image>{{commentNumber}}</button>
+      <button class='weui-flex__item' bindtap='goodPlan' data-status="{{messageList.status}}">
           <image wx:if="{{messageList.status}}" src='{{imagePath}}/index-good.png'></image>
           <image wx:else="{{messageList.status}}" src='{{imagePath}}/index-good-before.png'></image>
           {{messageList.goodNumber}}
@@ -41,20 +45,23 @@
     <text>评论 {{commentNumber}} 条</text> 
   </view>
   <!--回复内容  -->
-  <view class='comment-body' wx:for="{{comment}}" wx:key="{{item.id}}" bindtap='havePersonComment' data-id='{{item.id}}'>
+  <view class='comment-body' wx:for="{{comment}}" wx:key="{{item.id}}"  bindtap='havePersonComment' data-id='{{item.id}}' data-answerId="{{item.answerId}}" data-name="{{item.nickName}}">
     <view class='comment-head'>
-      <image src="{{userInfo.avatarUrl}}"></image>
+      <image src="{{item.avatarUrl}}" data-id="{{item.id}}" catchtap='gotowho'  data-name="{{item.nickName}}"></image>
     </view>
     <view class='comment-content'>
       <view class='comment-content-head'>
-        <text>{{item.name}} ({{item.id}}楼)</text>
-        <view class='comment-content-head-body'>13分钟前 来自[{{item.address}}]</view>
+        <text>{{item.nickName}} ({{comment.length - index}}楼)</text>
+        <view class='comment-content-head-body'>{{item.date}}\t来自[{{item.school}}]</view>
       </view>
       <view class='comment-content-body'>
         <text>{{item.content}}</text>
-        <view wx:if="{{item.commentBody[0]}}">
-        <view class='comment-content-review'>回复@{{item.commentBody[1]}}的评论: {{item.commentBody[2]}}</view>
-        <text class='comment-content-review-sign'>查看对话</text>
+        <view>
+        <view class='comment-content-review'  wx:if="{{item.zpl.length}}">
+        <view wx:for="{{item.zpl}}" wx:key="reply.id" wx:for-item="zpl" catchtap='replyWho' data-id='{{zpl.id}}' data-answerId="{{zpl.answerId}}" data-name="{{zpl.pinlunren}}">
+        <text class='reply'>{{zpl.pinlunren}}</text>回复<text class='reply'>{{zpl.hf}}</text>:{{zpl.content}}
+        </view>
+        </view>
         </view>
       </view>
     </view>
@@ -64,8 +71,8 @@
 <!--底部键盘  -->
 <view class='inputBottom'>
 <image src='{{imagePath}}/emoji.png'></image>
-<input type="text" class="weui-search-bar__input" placeholder='评论的内容' focus='{{inputFocus}}'/>
-<button>回复</button>
+<input type="text" class="weui-search-bar__input" placeholder='{{commentPlaceholder}}' focus='{{inputFocus}}' bindinput="inputTyping" value='{{inputVal}}'/>
+<button bindtap='answer'>回复</button>
 </view>
 
 <!-- 自定义模态框  -->
@@ -74,8 +81,7 @@
   <view class="modal-title">选择</view>
   <view class="modal-content">
     <view class='modal-text' bindtap='haveCommentOk'>回复</view>
-    <view class='modal-text' bindtap='copyContent'>复制内容</view>
-    <view class='modal-text' bindtap='hateIt'>举报</view>
-    <view class='modal-text' bindtap='hideModal'>查看对话</view>
+    <view class='modal-text'>删除本评论</view>
+    <view class='modal-text'>隐藏本评论</view>
   </view>
 </view>
