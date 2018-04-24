@@ -74,6 +74,13 @@
           <image src='{{imagePath}}/index-message.png'></image>{{item.commentNumber}}</button>
       </view>
     </navigator>
+    <view class="weui-loadmore" wx:if="{{loadMore}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line" wx:else="{{loadMore}}">  
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line loadmore">暂无数据</view>
+    </view> 
     <!--conetent end  -->
   </view>
   <!--body end  -->

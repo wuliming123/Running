@@ -212,3 +212,7 @@ page{
    opacity: 0.4;
 
 }
+
+.loadmore{
+  background-color: #f3f6f8;
+}

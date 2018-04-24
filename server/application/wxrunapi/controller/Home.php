@@ -57,20 +57,30 @@ class Home extends Controller
             ->field('user.id,planId,nickName,avatarUrl,gender,school,content,contentPic,planAddress,date')
             ->order('date desc')
             ->select();
+        // 一坨狗屎代码 查询首页的评论数
+        $fpl = Db::name("answer")->select();
+        $zpl = Db::table("running_answer")->alias("answer")
+            ->join("running_reply reply","answer.answerId = reply.answerId")        
+            ->select();
         if($data){
-            for($i = 0;$i < sizeof($data);$i++){
+            for($i = 0;$i < count($data);$i++){
                 // 时间格式化
                 $data[$i]['time'] = date("H:i",$data[$i]['date']);
                 $data[$i]['date'] = date("m-d",$data[$i]['date']);
                 $data[$i]["indexPic"] = explode(",",substr($data[$i]['contentPic'],0,-1));
                 $data[$i]['showPic'] = 3;
-                // 一坨狗屎代码
-                $data[$i]['commentNumber'] = Db::name("answer")->where("planId",$data[$i]["planId"])->count();
-                $data[$i]['commentNumber'] += 
-                Db::table("running_answer")->alias("answer")
-                ->join("running_reply reply","answer.answerId = reply.answerId")        
-                ->where("planId",$data[$i]["planId"])
-                ->count();
+                // 三循环，我去
+                $data[$i]['commentNumber'] = 0;
+                for($j = 0;$j < count($fpl);$j++){
+                    if($data[$i]['planId'] == $fpl[$j]['planId']){
+                        $data[$i]['commentNumber']++;
+                        for($k = 0;$k < count($zpl);$k++){
+                            if($fpl[$j]['answerId'] == $zpl[$k]['answerId']){
+                                $data[$i]['commentNumber']++;
+                            }
+                        }
+                    }
+                }
             }
             return json(['code'=>1,'msg'=>'接口测试正常','data'=>$data]);
         }else{
@@ -160,19 +170,21 @@ class Home extends Controller
             ->order("answer.date desc")
             ->select();
         //查询子评论
-        $sonData = Db::table("running_reply")->alias("reply")
+        if($data){
+            $sonData = Db::table("running_reply")->alias("reply")
                 ->join("running_answer answer","answer.answerId = reply.answerId")
                 ->join("running_user pinlunren","reply.id = pinlunren.id")
                 ->join("running_user hf","reply.replyUserId = hf.id")
                 ->where("planId",$planId)
                 ->field('pinlunren.nickName as pinlunren,hf.nickName as hf,reply.*')
                 ->select();
-        for($i=0;$i<count($data);$i++)
-            for($j=0;$j<count($sonData);$j++){
-                if($data[$i]['answerId'] == $sonData[$j]['answerId']){
-                    $data[$i]["zpl"][] = $sonData[$j];
-            }
-        };
+            for($i=0;$i<count($data);$i++)
+                for($j=0;$j<count($sonData);$j++){
+                    if($data[$i]['answerId'] == $sonData[$j]['answerId']){
+                        $data[$i]["zpl"][] = $sonData[$j];
+                }
+            };
+        }
         if($data){
             return json(['code'=>1,'msg'=>'接口测试正常','data'=>$data]);
         }else{

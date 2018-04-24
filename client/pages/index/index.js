@@ -6,6 +6,7 @@ Page({
     imagePath:"../../images",
     userInfo: null,
     indexPage:5,
+    loadMore:1,
     // 轮播图
     swiperPic: [
       'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
@@ -111,24 +112,14 @@ Page({
   //上拉加载
   onReachBottom: function () {
     if (this.data.indexPage <= this.data.messageList.length){
-      wx.showLoading({
-        title: '加载更多主题',
-        mask: 'true'
-      })
-      setTimeout(function () {
-        wx.hideLoading()
-      }, 500)
       this.setData({
-        indexPage: this.data.indexPage + 5
+        indexPage: this.data.indexPage + 5,
+        loadMore:1
       })
     }else{
-      wx.showLoading({
-        title: '无更多主题了',
-        mask: 'true'
+      this.setData({
+        loadMore:0,
       })
-      setTimeout(function () {
-        wx.hideLoading()
-      }, 500)
     }
   },
   onShareAppMessage:function(e){
