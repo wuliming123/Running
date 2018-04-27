@@ -22,7 +22,6 @@ App({
     return new Promise(function (resolve, reject) {
       wx.login({
         success: function (res) {
-          console.log('吴黎明:wx.login得到code码', res);
           if(res.code){
             wx.getUserInfo({
               withCredentials: true,

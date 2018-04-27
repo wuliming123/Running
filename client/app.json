@@ -1,5 +1,5 @@
 {
-  "pages":[    
+  "pages":[
     "pages/index/index",
     "pages/index/comment",
     "pages/index/message",
@@ -9,7 +9,8 @@
     "pages/user/myfans",
     "pages/user/guanzhu",
     "pages/user/who",
-    "pages/user/cropper/normal"
+    "pages/user/cropper/normal",
+    "pages/user/myrun"
   ],
   "window":{
     "backgroundTextStyle":"light",

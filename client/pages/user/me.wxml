@@ -14,18 +14,18 @@
       </view>
       <view class='weui-grid__label'><text>修改资料</text></view>
     </navigator>
-    <navigator class='weui-grid' url="">
+    <navigator class='weui-grid' url="/pages/user/myrun">
       <view class='weui-grid__icon'>
         <image src="../../images/run.png"></image>
       </view>
       <view class='weui-grid__label'><text>我的run</text></view>
     </navigator>
-    <navigator class='weui-grid' url="">
+    <view class='weui-grid' bindtap='setting'>
       <view class='weui-grid__icon'>
-        <image src="../../images/dongtai-1.png" style=''></image>
+        <image src="../../images/setting.png" style=''></image>
       </view>
-      <view class='weui-grid__label'><text>我的动态</text></view>
-    </navigator>
+      <view class='weui-grid__label'><text>授权管理</text></view>
+    </view>
     <navigator class='weui-grid' url="">
       <view class='weui-grid__icon bz_father'>
         <image src="../../images/message.png"></image>

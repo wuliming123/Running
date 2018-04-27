@@ -194,6 +194,59 @@ const DelGuanzhuUser = function (data,callback) {
     }
   })
 }
+//获取我发布的主题
+const ShowMyPlan = function (data,callback) {
+  wx.showLoading({
+    title: '加载中...'
+  })
+  wx.request({
+    url: `${Host}Index/showmyplan`,
+    method: "POST",
+    header: {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    data: data,
+    success: function (res) {
+      wx.hideLoading()
+      return typeof callback == "function" && callback(res.data)
+    },
+    fail: function (error) {
+      return typeof callback == "function" && callback(false)
+    }
+  })
+}
+//删除一条计划delplan
+const DelPlan = function (data,callback) {
+  wx.request({
+    url: `${Host}Index/delplan`,
+    method: "POST",
+    header: {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    data: data,
+    success: function (res) {
+      if(res.data.code){
+        wx.showToast({
+          title: '删除成功',
+          icon: 'success'
+        });
+      }else{
+        wx.showToast({
+          title: '删除失败',
+          icon: 'none'
+        });
+      }
+      return typeof callback == "function" && callback(res.data)
+    },
+    fail: function (error) {
+      wx.showToast({
+        title: '删除失败',
+        icon: 'none'
+      });
+      return typeof callback == "function" && callback(false)
+    }
+  })
+}
 module.exports = {
   UpHead: UpHead,
   ModifyMyInfo: ModifyMyInfo,
@@ -202,4 +255,6 @@ module.exports = {
   GetFensi: GetFensi,
   AddGuanzhuUser: AddGuanzhuUser,
   DelGuanzhuUser: DelGuanzhuUser,
+  ShowMyPlan: ShowMyPlan,
+  DelPlan: DelPlan,
 }

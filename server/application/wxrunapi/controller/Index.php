@@ -177,5 +177,47 @@ class Index extends Controller
             return json(['code'=>0,'msg'=>'你已经关注了该用户','data'=>null]);
         }
     }
-
+    public function showmyplan()//获取自己发布的所有帖子、每个帖子的评论数（父评论和子评论）、每个帖子的点赞数
+    {
+        $request = Request::instance();
+        $fpl = Db::table("running_answer")->alias("answer")
+            ->join("running_plan plan","plan.planId = answer.planId")
+            ->where("plan.id",$request->post("id"))
+            ->field('plan.planId')
+            ->select();
+        $zpl = Db::table("running_plan")->alias("plan")
+            ->where("plan.id",$request->post("id"))
+            ->join("running_answer answer","plan.planId = answer.planId")
+            ->join("running_reply reply","reply.answerId = answer.answerId")
+            ->field('plan.planId')
+            ->select();
+        //查询我发布的plan
+        if($data = Db::name("plan")->field('planId,content,date,goodFans,id')->where("id",$request->post('id'))->select()){
+            for($i=0;$i<count($data);$i++){
+                $arr_befollowed = explode(",", $data[$i]['goodFans']);
+                $arr_befollowed=array_filter($arr_befollowed);
+                $data[$i]['zanNum']= count($arr_befollowed);
+                $data[$i]['date']=date("Y-m-d H:i",$data[$i]['date']);
+                unset($data[$i]['goodFans']);
+                for($j= 0,$data[$i]['pingNum']=0 ; $j<count($fpl);$j++){
+                    if ($data[$i]['planId']==$fpl[$j]['planId'])
+                        $data[$i]['pingNum']++;
+                }
+                for ($j = 0;$j<count($zpl);$j++){
+                    if ($data[$i]['planId']==$zpl[$j]['planId'])
+                        $data[$i]['pingNum']++;
+                }
+            }
+        }
+        return json(['code'=>1,'msg'=>'获取列表成功','data'=>$data]);
+    }
+    public function delplan()//删除一条plan，mysql用来触发器，会自动删除其评论(父子都会删除)
+    {
+        $request = Request::instance();
+        if(Db::name("plan")->where('planId',$request->post('planId'))->delete()){
+            return json(['code'=>1,'msg'=>'删除成功','data'=>null]);
+        }else{
+            return json(['code'=>0,'msg'=>'删除失败','data'=>null]);
+        }
+    }
 }
