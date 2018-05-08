@@ -1,0 +1,88 @@
+<view class="page">
+  <view class="page__hd">
+  </view>
+  <view class="page__bd">
+   
+
+ 
+  <view wx:if="{{pl[0]['ztId']}}" class="weui-loadmore weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我的发布被评论</view>
+  </view>
+ <navigator  wx:for="{{pl}}"  url="/pages/index/message?planId={{item.ztId}}" class="weui-panel"   hover-class="none">
+        <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__desc maincontent">
+                  <text class='who' data-id='{{item.ztAuthorId}}'  data-title='{{item.ztAuthorName}}的主页' catchtap='gotowho'>{{item.ztAuthorName}}</text>：{{item.ztContent}}
+                </view>
+                <view class="weui-media-box__info">
+                    <view class="weui-media-box__info__meta">
+                      <view class="weui-media-box__desc">
+                        <text class='who' data-id='{{item.plAuthorId}}'  data-title='{{item.plAuthorName}}的主页' catchtap='gotowho'>{{item.plAuthorName}}</text> {{item.plTime}}评论：{{item.plContent}}
+                      </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+</navigator>  
+
+
+
+
+
+
+
+
+
+
+
+<view wx:if="{{hf[0]['zhutiPlanId']}}" class="weui-loadmore weui-loadmore_line">
+     <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我的评论被回复</view>
+</view>
+ <navigator  wx:for="{{hf}}" class="weui-panel"   hover-class="none" url="/pages/index/message?planId={{item.zhutiPlanId}}">
+        <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_text">
+                <view class="topborder">
+                  <text class='who' data-id='{{item.fromId}}'  data-title='{{item.fromName}}的主页' catchtap='gotowho'>{{item.fromName}}</text>
+                  {{item.fromTime}}
+                  回复
+                  <text class='who'>{{item.toName}}</text>
+                  ：{{item.fromContent}}
+                </view>
+                <view class="weui-media-box__desc maincontent">
+                  <text class='who' data-id='{{item.zhutiAuthorId}}'  data-title='{{item.zhutiAuthorName}}的主页' catchtap='gotowho'>{{item.zhutiAuthorName}}</text>
+                  ：{{item.zhutiContent}}
+                </view>
+                <view class="weui-media-box__info">
+                    <view class="weui-media-box__info__meta">
+                      <view class="weui-media-box__desc">
+                        <text class='who' data-id='{{item.cengzhuId}}'  data-title='{{item.cengzhuName}}的主页' catchtap='gotowho'>{{item.cengzhuName}}</text>
+                        {{item.cengzhuTime}}评论：{{item.cengzhuContent}}
+                      </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+</navigator>  
+
+
+      <view wx:if="{{zan[0]['planId']}}" class="weui-loadmore weui-loadmore_line">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我的发布被点赞</view>
+      </view>
+      <navigator wx:for="{{zan}}"  url="/pages/index/message?planId={{item.planId}}" class="weui-panel"   hover-class="none" >
+        <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__desc maincontent">{{item.content}}</view>
+                <view class="weui-media-box__info">
+                    <view class="weui-media-box__info__meta">
+                      <image src="../../images/index-good.png" class='head'></image> 
+                      <text class='who' wx:for="{{item.dianzan}}" wx:for-item="zan" data-id='{{zan.id}}'  data-title='{{zan.nickName}}的主页' catchtap='gotowho'>{{zan.nickName}} </text>
+                      <text> 觉得很赞</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+      </navigator>
+
+
+  </view>
+</view>

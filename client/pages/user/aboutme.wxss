@@ -1,0 +1,40 @@
+page{
+   display: block; 
+  background-color: #eee;
+  min-height: 100%;
+  font-size: 14px;
+  font-family: "微软雅黑"; 
+  padding-top:10px; 
+}
+.topborder{
+   padding-bottom:10px;
+   margin-bottom: 10px;
+   border-bottom:2px dotted #f3f6f8;  
+}
+.weui-media-box__info{
+  padding-top:10px; 
+  border-top:2px dotted #f3f6f8; 
+  color: #000;
+}
+.weui-media-box__desc{
+  color: #000;
+}
+.weui-media-box__info__meta{
+  padding: 0;
+  line-height: 20px;
+}
+.head{
+  width: 16px;
+  height: 16px;
+  margin-right:4px; 
+}
+.maincontent{
+  color: #ccc;
+}
+.weui-loadmore__tips_in-line{
+  background: #eee; 
+  color: #000;
+}
+.who{
+  color: blueviolet;
+}

@@ -1,15 +1,15 @@
-/* .weui-panel{
-  position: relative;
+page{
+  display: block;
+  background-color: #eee;
+  min-height: 100%;
+  font-size: 14px;
+  font-family: "微软雅黑"; 
+  padding-top:10px; 
 }
-.remove{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to right, rgba(255, 0, 0, 0.1) , rgba(255, 0, 0, 0.9)); 
-} */
+.weui-panel{
+  position:static;
+}
+.weui-media-box__info{
+  padding-top:10px; 
+  border-top:2px dotted #f3f6f8; 
+}

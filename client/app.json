@@ -10,7 +10,8 @@
     "pages/user/guanzhu",
     "pages/user/who",
     "pages/user/cropper/normal",
-    "pages/user/myrun"
+    "pages/user/myrun",
+    "pages/user/aboutme"
   ],
   "window":{
     "backgroundTextStyle":"light",

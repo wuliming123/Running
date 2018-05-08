@@ -62,6 +62,18 @@ Page({
       })
       return
     }
+    //正则验证手机号码
+    let myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    if (userinfo.phone!='' && !myreg.test(userinfo.phone)) {
+      wx.showModal({
+        title: '提示',
+        content: '手机号码有误',
+        showCancel: false,
+        success: function (res) {
+        }
+      })
+      return false;
+    } 
     let data = {
       "token": App.globalData.userInfo.token,
       'id': App.globalData.userInfo.id,
