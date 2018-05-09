@@ -32,3 +32,7 @@ color: #6cc8e2;
   border-radius: 30px;
   border:1px solid #000; 
 }
+.weui-media-box__info{
+  padding-top:10px; 
+  border-top:2px dotted #f3f6f8; 
+}

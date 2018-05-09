@@ -81,7 +81,7 @@
   <view class="modal-title">选择</view>
   <view class="modal-content">
     <view class='modal-text' bindtap='haveCommentOk'>回复</view>
-    <view class='modal-text'>删除本评论</view>
-    <view class='modal-text'>隐藏本评论</view>
+     <view class='modal-text'>删除本评论</view> 
+    
   </view>
 </view>

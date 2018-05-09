@@ -247,6 +247,91 @@ const DelPlan = function (data,callback) {
     }
   })
 }
+//我的消息条数
+const NumAboutMe = function (data, callback) {
+  wx.request({
+    url: `${Host}Index/numaboutme`,
+    method: "POST",
+    header: {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    data: data,
+    success: function (res) {
+      return typeof callback == "function" && callback(res.data)
+    },
+    fail: function (error) {
+      return typeof callback == "function" && callback(false)
+    }
+  })
+}
+//我的计划被点赞
+const ZanAboutMe = function (data, callback) {
+  wx.request({
+    url: `${Host}Index/zanaboutme`,
+    method: "POST",
+    header: {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    data: data,
+    success: function (res) {
+      return typeof callback == "function" && callback(res.data)
+    },
+    fail: function (error) {
+      return typeof callback == "function" && callback(false)
+    }
+  })
+}
+//我的主题被评论。
+const PlAboutMe = function (data, callback) {
+  wx.request({
+    url: `${Host}Index/plaboutme`,
+    method: "POST",
+    header: {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    data: data,
+    success: function (res) {
+      return typeof callback == "function" && callback(res.data)
+    },
+    fail: function (error) {
+      return typeof callback == "function" && callback(false)
+    }
+  })
+}
+//我的主题被评论。
+const HfAboutMe = function (data, callback) {
+  wx.request({
+    url: `${Host}Index/hfaboutme`,
+    method: "POST",
+    header: {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    data: data,
+    success: function (res) {
+      return typeof callback == "function" && callback(res.data)
+    },
+    fail: function (error) {
+      return typeof callback == "function" && callback(false)
+    }
+  })
+}
+//获取别人发布的主题
+const ShowHisPlan = function (data, callback) {
+  wx.request({
+    url: `${Host}Index/showhisplan`,
+    method: "POST",
+    header: {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    data: data,
+    success: function (res) {
+      return typeof callback == "function" && callback(res.data)
+    },
+    fail: function (error) {
+      return typeof callback == "function" && callback(false)
+    }
+  })
+}
 module.exports = {
   UpHead: UpHead,
   ModifyMyInfo: ModifyMyInfo,
@@ -257,4 +342,9 @@ module.exports = {
   DelGuanzhuUser: DelGuanzhuUser,
   ShowMyPlan: ShowMyPlan,
   DelPlan: DelPlan,
+  NumAboutMe: NumAboutMe,
+  ZanAboutMe: ZanAboutMe,
+  PlAboutMe: PlAboutMe,
+  HfAboutMe: HfAboutMe,
+  ShowHisPlan: ShowHisPlan,
 }

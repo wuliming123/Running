@@ -88,7 +88,6 @@ Page({
           let data = { id: App.globalData.userInfo.id, token: App.globalData.userInfo.token, planId: e.currentTarget.dataset.planid}
           DelPlan(data,function(re){
             if (re.code){
-              console.log(11);
               _this.data.myArticleList.splice(e.currentTarget.dataset.xiabiao, 1)
               _this.setData({ myArticleList: _this.data.myArticleList })
             }

@@ -14,11 +14,17 @@
       </view>
       <view class='weui-grid__label'><text>修改资料</text></view>
     </navigator>
-    <navigator class='weui-grid' url="/pages/user/myrun">
+    <navigator class='weui-grid' url="">
       <view class='weui-grid__icon'>
         <image src="../../images/run.png"></image>
       </view>
-      <view class='weui-grid__label'><text>我的run</text></view>
+      <view class='weui-grid__label'><text>运动记录</text></view>
+    </navigator>
+    <navigator class='weui-grid' url="/pages/user/myrun">
+      <view class='weui-grid__icon'>
+        <image src="../../images/dongtai.png"></image>
+      </view>
+      <view class='weui-grid__label'><text>我的发布</text></view>
     </navigator>
     <view class='weui-grid' bindtap='setting'>
       <view class='weui-grid__icon'>
@@ -26,10 +32,10 @@
       </view>
       <view class='weui-grid__label'><text>授权管理</text></view>
     </view>
-    <navigator class='weui-grid' url="">
+     <navigator class='weui-grid' url="/pages/user/aboutme?npl={{pl}}&nhf={{hf}}"> 
       <view class='weui-grid__icon bz_father'>
         <image src="../../images/message.png"></image>
-        <view class='biaozhi'>99</view> 
+        <view class='biaozhi' wx:if="{{sum!=0}}">{{sum}}</view> 
       </view>
       <view class='weui-grid__label'><text>与我相关</text></view>
     </navigator>

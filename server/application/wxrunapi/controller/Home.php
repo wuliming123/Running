@@ -7,19 +7,21 @@ use think\Request;
 
 class Home extends Controller
 {
-    // public function _initialize()
-    // {
-    //     $request = Request::instance();
-    //     if($request->has("id","post") && $request->has("token","post")){
-    //         $data['token'] = $request->post('token');
-    //         $data['id'] =$request->post('id');
-    //         if(! Db::name("user")->where($data)->select()){
-    //             exit(json_encode(['code'=>0,'msg'=>'登录状态已过期，请重新登录'.$data,'data'=>null]));
-    //         }
-    //     }else{
-    //         exit(json_encode(['code'=>0,'msg'=>'请通过登录后在操作','data'=>null]));
-    //     }
-    // }
+     public function _initialize()
+     {
+         $request = Request::instance();
+         if($request->action()!="showplan") {
+             if ($request->has("id", "post") && $request->has("token", "post")) {
+                 $data['token'] = $request->post('token');
+                 $data['id'] = $request->post('id');
+                 if (!Db::name("user")->where($data)->select()) {
+                     exit(json_encode(['code' => 0, 'msg' => '登录状态已过期，请重新登录' . $data, 'data' => null]));
+                 }
+             } else {
+                 exit(json_encode(['code' => 0, 'msg' => '请通过登录后在操作', 'data' => null]));
+             }
+         }
+     }
 
     public function index()
     {
@@ -93,7 +95,7 @@ class Home extends Controller
     {
         $request = Request::instance();
         $status = $request->post("status");
-
+        Db::name("plan")->where("planId",$request->post("planId"))->update(['readFlag'=>1]);//被点赞或则取消赞，通知用户
         $data = Db::table("running_plan")
             ->where("planId",$request->post("planId"))
             ->field("goodFans")

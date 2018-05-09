@@ -11,7 +11,8 @@ Page({
     phone:'',
     age:'',
     birth:'',
-    statusxianghuguanzhu:null//页面加载后把是否为相互关注状态存储起来。
+    statusxianghuguanzhu:null,//页面加载后把是否为相互关注状态存储起来。
+    hisArticleList:[]
   },
   //单击相互关注按钮,调用接口取消关注此人
   tapXianghuGuanzhu: function () {
@@ -49,7 +50,7 @@ Page({
           that.setData({[ua]: true})
         } else {
           let ua = `who.yiguanzhu`
-          that.setData({ [up]: true })
+          that.setData({ [ua]: true })
         }
       }
     })
@@ -73,13 +74,14 @@ Page({
     })
   },
   onLoad: function (options) {
-    console.log("onload", App.globalData.userInfo.id, options.id)
+    
     if (options.id == App.globalData.userInfo.id){
       wx.switchTab({
         url: "/pages/user/me",
       })
     }
     var that = this;
+    that.setData({who:options})
     //资料选项卡获取用户资料
     wx.setNavigationBarTitle({
       title: options.title//页面标题为路由参数
@@ -131,6 +133,10 @@ Page({
   },
   onShow: function () {
     let that = this
+    let data = { id: App.globalData.userInfo.id, token: App.globalData.userInfo.token ,userid:that.data.who.id}
+    Api.ShowHisPlan(data, function (re) {
+      that.setData({ hisArticleList: re.data })
+    })
   },
   onPullDownRefresh: function () {
   },

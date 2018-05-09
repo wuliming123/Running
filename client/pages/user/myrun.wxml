@@ -19,7 +19,6 @@
               </view>
           </view>
       </view>
-      <!-- <view class="remove" wx:if="{{item.delflag}}"  data-id="{{item.id}}" catchtap="delItem" data-xiabiao="{{index}}" catchlongpress="showdedel"><view>删除</view></view> -->
     </navigator> 
   </view>
 </view>
