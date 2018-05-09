@@ -1,4 +1,4 @@
-Running —— 同城约跑平台
+﻿Running —— 同城约跑平台
 ======================
 
 * 这个项目是一个微信小程序,API部分是用ThinkPHP5写的
@@ -10,7 +10,7 @@ Running —— 同城约跑平台
 * 数据库：`\server\application\wxrunapi\database.php`->`hostname`、`database`、`username`、`password`
 * 小程序AppID和AppSecret：`\server\application\wxrunapi\controller\Login.php`->`appid`和`appSecret`
 * 把server目录部署到服务器(数据库部分当项目结束后提交)
-* 小程序前台调用接口部分：`pages`文件夹下的每个`api.js`文件中的`const Host = ''`
+* 小程序前台调用接口部分：`client`文件夹下的每个`api.js`文件中的`const Host = ''`
 
 # 参与者
 
