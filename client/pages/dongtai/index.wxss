@@ -1,1 +1,55 @@
-/* pages/dongtai/index.wxss */
+page{
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+}
+.page__hd .content{
+  padding-top: 30px; 
+  height: 90px; 
+  color: #888;
+  letter-spacing: 1px;
+  background-image: url('http://bpic.588ku.com/back_pic/00/02/34/8356167c25bc7e6.jpg');
+  background-size: cover;
+  overflow: hidden;
+}
+.page__hd .content text{
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+.page__hd .start_run{
+  /* margin: 0 auto; */
+  margin: 15px auto;
+  height: 40px;
+  width: 75%;
+  color: #fff;
+  text-align: center;
+  /* border: 1px green solid; */
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+   /* background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%);  */
+   background: #1AAD19; 
+}
+.page__hd .start_run text{
+  display: block;
+  width: 50%;
+  height: 28px;
+  line-height: 28px;
+  letter-spacing: 5px;
+}
+.page__hd .start_run image{
+  /* margin-left: 20px; */
+  position: relative;
+  right: 0px;
+  width: 28px;
+  height: 28px;
+}
+.page__bd .content{
+   color: #888;
+}
+.userName{
+  font-size: 14px;
+}

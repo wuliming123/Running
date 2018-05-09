@@ -4,17 +4,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-    motto:null
+    runtime:999,
+    imageUrl:'/images/user-active.png',
+    readMore:4,
+    showReadMore:false
   },
 
+  openMore:function(){
+    this.setData({
+      readMore:10,
+      showReadMore:true
+    })
+  },
+  takeUp:function(){
+    this.setData({
+      readMore: 4,
+      showReadMore: false
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("onLoad监听页面加载")
-    this.setData({
-      motto: wx.getStorageSync("userInfo").token
-    })
+    
+    
   },
 
   /**

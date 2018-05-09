@@ -1,11 +1,50 @@
- <!-- <text>{{motto}}</text>  -->
+<!-- <text>{{motto}}</text>  -->
 <view class="page">
   <!--页头-->
   <view class="page__hd">
-  
-   </view>
+    <view class='content'>
+      <text>您的跑步总时长为</text>
+      <text>{{runtime}}分钟</text>
+      <text>“知识改变力量，运动点燃激情！”</text>
+    </view>
+    <navigator url='./run' class='start_run'>
+      <text>开始跑步</text>
+      <image src='/images/start_run.png'></image>
+    </navigator>
+  </view>
   <!--主体-->
   <view class="page__bd">
-    <text class="user-motto">{{motto}}</text>
+    <view class='content'>
+      <!-- <view class='title'>运动排榜</view> -->
+      <view class="weui-panel weui-panel_access">
+        <view class="weui-panel__hd">运动排榜</view>
+        <view class="weui-panel__bd">
+          <navigator url="" wx:for="{{readMore}}" wx:key="*this" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+              <image class="weui-media-box__thumb" src="{{imageUrl}}" />
+            </view>
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+              <view class="weui-media-box__title userName">用户昵称</view>
+              <view class="weui-media-box__desc">奔跑总时长为：999+，奔跑总次数为N次，奔跑总路程为N千米</view>
+            </view>
+          </navigator>
+        </view>
+        <view class="weui-panel__ft">
+          <view class="weui-cell weui-cell_access weui-cell_link">
+            <view class="weui-cell__bd" bindtap='openMore' hidden="{{showReadMore}}">查看更多排行榜</view>
+            <view class="weui-cell__bd" bindtap='takeUp' hidden="{{!showReadMore}}">收起</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+          </view>
+        </view>
+      </view>
+      <!-- <view class="list">
+        <view class='rankingList' wx:for="{{test}}" wx:key="*this">
+          <view class="icon-box__title photo">
+            <image src='{{imageUrl}}'></image>
+          </view>
+          <view class="icon-box__desc">用户昵称</view>
+        </view>
+      </view> -->
+    </view>
   </view>
 </view>

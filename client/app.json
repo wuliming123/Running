@@ -1,9 +1,10 @@
 {
-  "pages":[
+  "pages": [
+    "pages/dongtai/index",
+    "pages/dongtai/run",
     "pages/index/index",
     "pages/index/comment",
     "pages/index/message",
-    "pages/dongtai/index",
     "pages/user/me",
     "pages/user/modiy",
     "pages/user/myfans",
@@ -12,25 +13,25 @@
     "pages/user/cropper/normal",
     "pages/user/myrun"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#f3f6f8",
     "navigationBarTitleText": "running",
     "navigationBarTextStyle": "black"
   },
-  "tabBar":{
-    "borderStyle":"black",
-    "backgroundColor":"",
-    "list":[
+  "tabBar": {
+    "borderStyle": "black",
+    "backgroundColor": "",
+    "list": [
       {
-      "pagePath":"pages/index/index",
-      "text":"首页",
-      "iconPath":"./images/home.png",
-      "selectedIconPath":"./images/home-active.png"
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./images/home.png",
+        "selectedIconPath": "./images/home-active.png"
       },
       {
         "pagePath": "pages/dongtai/index",
-        "text": "空间",
+        "text": "RUN",
         "iconPath": "./images/dongtai.png",
         "selectedIconPath": "./images/dongtai-active.png"
       },
@@ -42,5 +43,4 @@
       }
     ]
   }
-  
 }

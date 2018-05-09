@@ -32,7 +32,6 @@
         <view class='biaozhi'>99</view> 
       </view>
       <view class='weui-grid__label'><text>与我相关</text></view>
-      
     </navigator>
     <navigator class='weui-grid' url="/pages/user/guanzhu?title=我的关注&userid={{userInfo.id}}">
       <view class='weui-grid__icon'>

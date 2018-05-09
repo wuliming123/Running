@@ -1,0 +1,28 @@
+<!-- <text>{{motto}}</text>  -->
+<view class="page">
+  <!--页头-->
+  <view class="page__hd">
+    <view class='head_left'>
+    <!-- RUNNING --><image src='/images/running.png'></image>
+    </view>
+    <view class='head_right'>
+      <view class='weui-grid__icon bz_father'>
+        <image src="../../images/message1.png"></image>
+        <view class='biaozhi'>1</view>
+      </view>
+    </view>
+  </view>
+  <!--主体-->
+  <view class="page__bd">
+    <view class="mainView">
+      <map class='map' id="myMap" speed="{{speed}}" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" covers="{{covers}}" polyline="{{polyline}}" show-location></map>
+      <view class='time'>{{time}}  --  {{meters}}KM</view>
+    </view>
+    <view class='button-sp-area'>
+      <button hidden='{{startRun}}' bindtap="starRun" type="primary" plain="true">开始跑步</button>
+      <button hidden='{{stopRun}}' bindtap="stopRun" type="primary" plain="true">暂停跑步</button>
+      <button hidden='{{continueRun}}' bindtap="starRun" type="primary" plain="true">继续跑步</button>
+      <button class="weui-btn" bindtap="stopingRun" type="primary" plain="true">结束跑步</button>
+    </view>
+  </view>
+</view>
