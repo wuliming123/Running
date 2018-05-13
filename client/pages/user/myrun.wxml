@@ -4,7 +4,7 @@
   <view class="page__bd">
     <block wx:if="{{!myArticleList[0].content}}">
       <view class="weui-loadmore weui-loadmore_line" style='margin-top:200px;'>
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">还没有发布任何东西~</view>
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line" style='background:#eee;'>还没有发布任何东西~</view>
         </view>
     </block>
    <navigator wx:for="{{myArticleList}}" url="/pages/index/message?planId={{item.planId}}" class="weui-panel"  data-xiabiao="{{index}}" data-planid="{{item.planId}}" catchlongpress="delItem" hover-class="none" wx:key="key">

@@ -1,7 +1,5 @@
 {
   "pages": [
-    "pages/dongtai/index",
-    "pages/dongtai/run",
     "pages/index/index",
     "pages/index/comment",
     "pages/index/message",
@@ -12,12 +10,15 @@
     "pages/user/who",
     "pages/user/cropper/normal",
     "pages/user/myrun",
-    "pages/user/aboutme"
+    "pages/user/aboutme",
+    "pages/dongtai/index",
+    "pages/dongtai/run",
+    "pages/login/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#f3f6f8",
-    "navigationBarTitleText": "running",
+    "navigationBarTitleText": "Running",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -33,8 +34,8 @@
       {
         "pagePath": "pages/dongtai/index",
         "text": "RUN",
-        "iconPath": "./images/dongtai.png",
-        "selectedIconPath": "./images/dongtai-active.png"
+        "iconPath": "./images/running.png",
+        "selectedIconPath": "./images/running-active.png"
       },
       {
         "pagePath": "pages/user/me",

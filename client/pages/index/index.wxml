@@ -46,7 +46,7 @@
         </view>
         <view class='main-content-title-btn'>
           <button class='other' catchtap='showDialogBtn' data-index="{{index}}">
-            <image src='{{imagePath}}/index-other.png'></image>
+             <image src='{{imagePath}}/index-other.png'></image> 
           </button>
         </view>
       </view>

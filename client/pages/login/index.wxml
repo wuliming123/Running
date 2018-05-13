@@ -1,0 +1,13 @@
+<view class="page">
+  <view class="page__hd">
+    <view><text class='title'>Welcome To Running</text></view>
+  </view>
+  <view class="page__bd">
+    <view class='content'>
+      <open-data type="userAvatarUrl" class="head"></open-data>
+      <button class="login" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+        <open-data type="userNickName"></open-data>，一键登录
+      </button>
+    </view>
+  </view>
+</view>

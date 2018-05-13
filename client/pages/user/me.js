@@ -8,6 +8,14 @@ Page({
     hf:0,
   },
   onLoad:function(re){
+    if(!wx.getStorageSync('userInfo')){
+      wx.navigateTo({
+        url: '/pages/login/index',
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+    }
   },
   //预览头像
   previewImg: function () {
@@ -15,37 +23,47 @@ Page({
       urls: [this.data.userInfo.avatarUrl]
     })
   },
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
-    let that = this
-    let data = {
-      "token": App.globalData.userInfo.token,
-      'id': App.globalData.userInfo.id,
+    if (App.globalData.userInfo.token){//如果用户已经登录
+      let that = this
+      let data = {
+        "token": App.globalData.userInfo.token,
+        'id': App.globalData.userInfo.id,
+      }
+      NumAboutMe(data,function(res){
+        that.setData({sum : res.data.sum,pl:res.data.pl,hf:res.data.hf})
+        if (res.data.zan!=0){//发现有新的人给我发布的帖子点赞
+            ZanAboutMe(data, function (res) {
+              wx.setStorageSync('zan', res.data)
+            })
+          }
+      });
+      this.setData({ userInfo: App.globalData.userInfo })
     }
-    NumAboutMe(data,function(res){
-       that.setData({sum : res.data.sum,pl:res.data.pl,hf:res.data.hf})
-       if (res.data.zan!=0){//发现有新的人给我发布的帖子点赞
-          ZanAboutMe(data, function (res) {
-            wx.setStorageSync('zan', res.data)
-          })
-        }
-    });
-  
-    this.setData({ userInfo: App.globalData.userInfo })
   },
-  /**
-  * 用户点击右上角分享
-  */
-  onShareAppMessage: function () {
+  //检查登录状况
+  checklogin:function(e){
+    if (!App.globalData.userInfo.token) {
+      wx.navigateTo({
+        url: '/pages/login/index',
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
+    }else{
+      wx.navigateTo({
+        url: e.currentTarget.dataset.url,
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
+    }
   },
+  //授权管理
   setting:function(){
     wx.openSetting({
       success: (res) => {
-           
       }
     })
   }
-
 })
