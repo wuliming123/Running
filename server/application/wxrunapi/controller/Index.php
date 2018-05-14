@@ -109,7 +109,8 @@ class Index extends Controller
         }
 
     }
-    public function getfensi()//查询某个人的粉丝列表id，昵称，头像，性别
+    public function getfensi()//查询某个
+        //人的粉丝列表id，昵称，头像，性别
     {
         try{
             $request = Request::instance();
