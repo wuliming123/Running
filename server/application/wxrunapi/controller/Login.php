@@ -36,8 +36,6 @@ class Login extends Controller
         }else{
             return json(['code'=>0,'msg'=>'登录失败,没有携带参数','data'=>null]);
         }
-
-
     }
 
     //获取session_key openId

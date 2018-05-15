@@ -7,7 +7,8 @@
         <view class='main-content-title-detail-footer'>
           <text>{{messageList.date}}\t</text>
           <text>{{messageList.time}}\t</text>
-          <text>来自[{{messageList.school}}]</text>
+          <text wx:if="{{messageList.school}}">来自[{{messageList.school}}]</text>
+          <text wx:else>\n</text>
         </view>
       </view>
     </view>
@@ -21,10 +22,10 @@
         <image src='{{itemPic}}'  mode="aspectFill" bindtap='viewPic' data-src='{{itemPic}}'></image>
       </view>
     </view>
-      <view class='main-content-body-address'  wx:if="{{messageList.planAddress != '请选择约跑地点'}}">
-        <image src='{{imagePath}}/index-address.png'></image>
-        <text>{{messageList.planAddress}}</text>
-      </view>
+   <view class='main-content-body-address'  wx:if="{{messageList.planAddress != '请选择约跑地点'}}">
+      <image src='{{imagePath}}/index-address.png'></image>
+      <text>{{messageList.planAddress}}</text>
+    </view>
   </view>
   <!--conter footer  -->
   <view class='main-content-footer weui-flex'>
@@ -32,17 +33,16 @@
       <image src='{{imagePath}}/index-hand.png'></image>分享</button>
       <button class='weui-flex__item' bindtap='comment' data-id="{{messageList.planId}}">
           <image src='{{imagePath}}/index-message.png'></image>{{commentNumber}}</button>
-      <button class='weui-flex__item' bindtap='goodPlan' data-status="{{messageList.status}}">
-          <image wx:if="{{messageList.status}}" src='{{imagePath}}/index-good.png'></image>
-          <image wx:else="{{messageList.status}}" src='{{imagePath}}/index-good-before.png'></image>
+      <button class='weui-flex__item' bindtap='goodPlan' data-status="{{messageList.status}}" wx:if="{{userInfo}}">
+          <image class='sex' src="../../images/{{messageList.status==0 ? 'index-good-before.png': 'index-good.png'}}"></image>
           {{messageList.goodNumber}}
-        </button>
+      </button>
   </view>
 </view>
 <!--评论区  -->
 <view class='comment'>
   <view class='comment-title'>
-    <text>评论 {{commentNumber}} 条</text> 
+    <text>评论 {{commentNumber}} 条</text>
   </view>
   <!--回复内容  -->
   <view class='comment-body' wx:for="{{comment}}" wx:key="{{item.id}}"  bindtap='havePersonComment' data-id='{{item.id}}' data-answerId="{{item.answerId}}" data-name="{{item.nickName}}">
@@ -70,8 +70,7 @@
 
 <!--底部键盘  -->
 <view class='inputBottom'>
-<image src='{{imagePath}}/emoji.png'></image>
-<input type="text" class="weui-search-bar__input" placeholder='{{commentPlaceholder}}' focus='{{inputFocus}}' bindinput="inputTyping" value='{{inputVal}}'/>
+<input type="text" class="weui-search-bar__input" placeholder='{{commentPlaceholder}}' focus='{{inputFocus}}' bindinput="inputTyping" value='{{inputVal}}' cursor-spacing='20'/>
 <button bindtap='answer'>回复</button>
 </view>
 
@@ -80,8 +79,9 @@
 <view class="modal-dialog" wx:if="{{showModal}}">
   <view class="modal-title">选择</view>
   <view class="modal-content">
-    <view class='modal-text' bindtap='haveCommentOk'>回复</view>
-     <view class='modal-text'>删除本评论</view> 
-    
+    <view class='modal-text' bindtap='haveCommentOk' wx:if="{{modalShow}}">回复</view>
+    <block wx:if="{{userInfo != ''}}">
+     <view class='modal-text'  wx:if="{{!modalShow}}" bindtap='deleteAnswer'>删除本评论</view> 
+    </block> 
   </view>
 </view>

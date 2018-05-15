@@ -17,25 +17,33 @@
       </view>
       <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
     </view>
-    <swiper indicator-dots="true" autoplay="true" interval="3000" duration="1500">
+    <!--搜索结果栏  -->
+    <view class='searchResult' hidden="{{searchShow == false}}">
+      <view class='searchTitle'>
+        搜索结果
+      </view>
+      <view class='searchLi' wx:for="{{messageSearch}}" wx:key="{{item.id}}"  bindtap='comment' data-id="{{item.planId}}">
+        <text>{{item.nickName}}:</text>{{item.content}}
+        <view class='searchDate'>{{item.date}}</view>
+      </view>
+    </view>
+    <swiper indicator-dots="true" autoplay="true" interval="3000" duration="1500" hidden="{{searchShow == true}}">
       <block wx:for="{{swiperPic}}" wx:key="idx">
         <swiper-item>
-          <image src="{{item}}" class="slide-image" />
+          <image src="{{imagePath}}/banner/{{item}}" class="slide-image" />
         </swiper-item>
       </block>
     </swiper>
   </view>
   <!--body-->
-  <view class="page__bd">
-    <!--content  第一个默认热门内容-->
-    <navigator class='main-content' wx:for="{{messageList}}" wx:for-item="item" wx:key="{{item.planId}}" bindtap='comment' data-id="{{item.planId}}" wx:if="{{index < indexPage}}">
+  <view class="page__bd" hidden="{{searchShow == true}}">
+    <navigator class='main-content' wx:for="{{messageList}}" wx:for-item="item" wx:key="{{item.planId}}" bindtap='comment' data-id="{{item.planId}}" hidden="{{index > indexPage}}">
       <view class='main-content-title'>
         <view class='main-content-title-head'>
           <image src="{{item.avatarUrl}}" data-id="{{item.id}}" data-name="{{item.nickName}}" catchtap='gotowho'></image>
           <view class='main-content-title-detail'>
             <text>{{item.nickName}}</text>
-            <image wx:if="{{item.gender}}" src='{{imagePath}}/man.png'></image>
-            <image wx:else="{{item.gender}}" src='{{imagePath}}/woman.png'></image>
+            <image class='sex' src="../../images/{{item.gender==1 ? 'man.png': item.gender==2 ? 'woman.png':'n.png'}}"></image>
             <view class='main-content-title-detail-footer'>
               <text>{{item.date}}\t</text>
               <text>{{item.time}}\n</text>
@@ -43,11 +51,6 @@
               <text wx:else>\n</text>
             </view>
           </view>
-        </view>
-        <view class='main-content-title-btn'>
-          <button class='other' catchtap='showDialogBtn' data-index="{{index}}">
-             <image src='{{imagePath}}/index-other.png'></image> 
-          </button>
         </view>
       </view>
       <view class='main-content-body'>
@@ -74,11 +77,12 @@
           <image src='{{imagePath}}/index-message.png'></image>{{item.commentNumber}}</button>
       </view>
     </navigator>
-    <view class="weui-loadmore" wx:if="{{loadMore}}">
+    <!--加载条  -->
+    <view class="weui-loadmore" hidden="{{loadMore == 0}}">
         <view class="weui-loading"></view>
         <view class="weui-loadmore__tips">正在加载</view>
     </view>
-    <view class="weui-loadmore weui-loadmore_line" wx:else="{{loadMore}}">  
+    <view class="weui-loadmore weui-loadmore_line" hidden="{{loadMore == 1}}">  
       <view class="weui-loadmore__tips weui-loadmore__tips_in-line loadmore">暂无数据</view>
     </view> 
     <!--conetent end  -->
@@ -89,15 +93,4 @@
 <!--发表评论按钮  -->
 <view class='commentBtn' bindtap='havePlan'>
   <image src='{{imagePath}}/index-addComment.png'></image>
-</view>
-
-<!-- 自定义模态框  -->
-<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
-<view class="modal-dialog" wx:if="{{showModal}}">
-  <view class="modal-title">选择</view>
-  <view class="modal-content">
-    <view class='modal-text' bindtap='deleteMessage'>删除本条动态</view>
-    <view class='modal-text' bindtap='hideMessage'>隐藏此条动态</view>
-    <view class='modal-text' bindtap='callPolice'>举报</view>
-  </view>
 </view>

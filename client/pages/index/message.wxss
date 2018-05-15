@@ -87,28 +87,24 @@
   background-color: #ffffff;
   padding:10px 0 10px ;
   border-top: 1px solid #f3f6f8; 
-}
-
-.inputBottom image{
-  width: 30px;
-  height: 30px;
-  margin-left: 5px;
+  text-align: center;
 }
 
 .inputBottom input{
   display: inline-block;
   border-bottom: 1px solid #1faa10;
-  min-width: 60%;
-  margin-left: 10px;
+  min-width: 70%;
+  text-align: left;
 }
 
 .inputBottom button{
   display: inline-block;
   background-color: #1faa10;
   color: #fff;
-  padding: 0 15px 0 15px;
+  padding: 0 10px 0 10px;
+  font-size: 26rpx;
   line-height: 2.0;
-  margin-left: 5px;
+  margin-left: 20px;
 }
 
 .navigator-hover {

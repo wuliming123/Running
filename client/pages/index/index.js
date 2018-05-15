@@ -5,30 +5,39 @@ Page({
     //图片地址
     imagePath:"../../images",
     userInfo: null,
-    indexPage:5,
+    indexPage:10,
     loadMore:1,
+    searchShow:false,
     // 轮播图
     swiperPic: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+      'banner_1.jpg',
+      'banner_2.jpg',
+      'banner_3.jpg'
     ],
     inputShowed: false, //搜索框
     inputVal: "", //搜索框
     showModal: false,  //模态框
     //主页记录 头像暂时用自己的头像代替
     messageList:[
+    ],
+    messageSearch:[
+
     ]
   },
   // 发布主题
   havePlan:function(e){
-    var id = e.currentTarget.dataset.id;//本文章的作者
-    wx.navigateTo({
-      url: '../index/comment?id' + id
-    })
+    if (app.globalData.userInfo){
+      var id = e.currentTarget.dataset.id;//本文章的作者
+      wx.navigateTo({
+        url: '../index/comment?id' + id
+      })
+    }else{
+      Api.login()
+    }
   },
   //查看个人资料
   gotowho:function(e){
+    Api.login()
     var id = e.currentTarget.dataset.id;
     var name = e.currentTarget.dataset.name;
     wx.navigateTo({
@@ -50,28 +59,6 @@ Page({
     wx.navigateTo({
       url: '../index/message?planId=' + planId
     })
-  },
-  //隐藏本条动态
-  hideMessage:function(){
-    this.data.messageList.splice(this.data.index,1)
-    wx.showToast({
-      title: '隐藏动态成功',
-      icon: 'success',
-      duration: 1000
-    })
-    this.hideModal()
-    this.setData({
-      messageList:this.data.messageList
-    })
-  },
-  //举报
-  callPolice: function () {
-    wx.showToast({
-      title: '举报成功',
-      icon: 'success',
-      duration: 1000
-    })
-    this.hideModal()
   },
   onLoad: function (re) {
     const _this = this;
@@ -111,11 +98,13 @@ Page({
   },
   //上拉加载
   onReachBottom: function () {
+    let _this = this
     if (this.data.indexPage <= this.data.messageList.length){
-      this.setData({
-        indexPage: this.data.indexPage + 5,
-        loadMore:1
-      })
+      setTimeout(function(){
+        _this.setData({
+          indexPage: _this.data.indexPage + 5
+        })
+      },500)
     }else{
       this.setData({
         loadMore:0,
@@ -124,23 +113,20 @@ Page({
   },
   onShareAppMessage:function(e){
     var planId = e.currentTarget.dataset.id;
-    // console.log(planId)
-    // return{
-    //   title:"running约跑",
-    //   desc:"一个约跑的社交平台",
-    //   path:`/pages/index/message?planId=${planId}`
-    // }
   },
   //搜索栏的四个事件
   showInput: function () {
     this.setData({
-      inputShowed: true
+      inputShowed: true,
+      searchShow:true,
+      messageSearch:[]
     });
   },
   hideInput: function () {
     this.setData({
       inputVal: "",
-      inputShowed: false
+      inputShowed: false,
+      searchShow: false
     });
   },
   clearInput: function () {
@@ -150,20 +136,16 @@ Page({
   },
   inputTyping: function (e) {
     this.setData({
-      inputVal: e.detail.value
+      inputVal: e.detail.value,
+      messageSearch: []
     });
-  },
-  //模态框两个事件
-  showDialogBtn: function (e) {
-    const index = e.currentTarget.dataset.index
+    for (let i = 0; i < this.data.messageList.length; i++) {
+      if (this.data.messageList[i].content.indexOf(this.data.inputVal)!= -1 && this.data.inputVal != "") {
+        this.data.messageSearch.push(this.data.messageList[i])
+      }
+    }
     this.setData({
-      showModal: true,
-      index: index
-    })
-  },
-  hideModal: function () {
-    this.setData({
-      showModal: false
+      messageSearch:this.data.messageSearch
     });
   },
   //预览图片

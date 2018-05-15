@@ -12,6 +12,7 @@ Page({
     commentId:0,
     commentPlaceholder:"回复楼主",
     answerId:0,
+    modalShow:false,
     //主页记录 头像暂时用自己的头像代替
     messageList: {
     },
@@ -33,6 +34,7 @@ Page({
   },
   //层主
   answer:function(){
+    if (app.globalData.userInfo){
     const _this = this
     if(this.data.commentId == 0 && this.data.answerId == 0){
       let data = {
@@ -68,41 +70,53 @@ Page({
         }
       })
     }
+    }else{
+      Api.login()
+    }
   },
   //回复其他人
   havePersonComment:function(e){
     const id = e.currentTarget.dataset.id;//层主ID
     const answerId = e.currentTarget.dataset.answerid;//楼层id
     const name = e.currentTarget.dataset.name;//层主名字
-    if (app.globalData.userInfo.id != id){
+    if(id != this.data.userInfo.id)
+    {
+      this.setData({
+        modalShow:true
+      })
+    }else{
+      this.setData({
+        modalShow: false
+      })
+    }
       this.setData({
         commentId: id,
         answerId: answerId,
         commentPlaceholder: "@" + name
       })
-      this.showDialogBtn();
-    }
+    this.showDialogBtn();
   },
   // 子评论回复
   replyWho:function(e){
     const id = e.currentTarget.dataset.id;//楼中楼ID
     const answerId = e.currentTarget.dataset.answerid;//楼层id
     const name = e.currentTarget.dataset.name;//楼中楼名字
-    if (app.globalData.userInfo.id != id){
+    if(id != this.data.userInfo.id){
       this.setData({
         commentId: id,
         answerId: answerId,
-        commentPlaceholder: "@" + name
+        commentPlaceholder: "@" + name,
+        modalShow: true
       })
       this.showDialogBtn();
     }
   },
   //回复按钮
   haveCommentOk: function () {
-    this.hideModal();
     this.setData({
-      inputFocus:true
+      inputFocus:true,
     })
+    this.hideModal();
   },
   // 关注按钮
   goodPlan:function(e) {
@@ -118,11 +132,21 @@ Page({
       })
     })
   },
+  //删除回复
+  deleteAnswer:function () {
+    const _this = this 
+    let data = { "token": app.globalData.userInfo.token,'id':app.globalData.userInfo.id,'answerId':this.data.answerId}
+    //主题内容展示
+    Api.generalPost("deleteComment", data, function (res) {
+      _this.onfresh()
+    })
+    this.hideModal();
+  },
   //刷新事件
   onfresh:function(){
     const _this = this
     this.setData({ userInfo: app.globalData.userInfo })
-    let data = { "token": app.globalData.userInfo.token, 'id': app.globalData.userInfo.id, "planId": this.data.planId }
+    let data = {'id': app.globalData.userInfo.id, "planId": this.data.planId }
     //主题内容展示
     Api.generalPost("showMessage", data, function (res) {
       _this.setData({
@@ -153,7 +177,7 @@ Page({
     })
     const _this = this
     this.setData({ userInfo: app.globalData.userInfo })
-    let data = { "token": app.globalData.userInfo.token, 'id': app.globalData.userInfo.id, "planId": this.data.planId }
+    let data = { 'id': app.globalData.userInfo.id, "planId": this.data.planId }
     //主题内容展示
     Api.generalPost("showMessage", data, function (res) {
       _this.setData({
@@ -205,6 +229,7 @@ Page({
   },
   //查看个人资料
   gotowho: function (e) {
+    Api.login();
     var id = e.currentTarget.dataset.id;
     var name = e.currentTarget.dataset.name;
     wx.navigateTo({

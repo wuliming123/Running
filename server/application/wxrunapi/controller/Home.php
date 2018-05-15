@@ -10,7 +10,7 @@ class Home extends Controller
      public function _initialize()
      {
          $request = Request::instance();
-         if($request->action()!="showplan") {
+         if($request->action()!="showplan" && $request->action()!="showmessage" &&  $request->action()!="showcomment") {
              if ($request->has("id", "post") && $request->has("token", "post")) {
                  $data['token'] = $request->post('token');
                  $data['id'] = $request->post('id');
@@ -191,6 +191,22 @@ class Home extends Controller
             return json(['code'=>1,'msg'=>'接口测试正常','data'=>$data]);
         }else{
             return json(['code'=>1,'msg'=>'接口测试异常','data'=>null]);
+        }
+    }
+
+    public function deleteComment()
+    {
+        $request = Request::instance();
+        $answerId = $request->post('answerId');
+        if($answerId){
+            $result = Db::name('answer')->where('answerId',$answerId)->delete();
+            if($result){
+                return json(['code'=>1,'msg'=>'接口测试正常','data'=>$result]);
+            }else{
+                return json(['code'=>0,'msg'=>'接口测试异常','data'=>null]);
+            }
+        }else{
+            return json(['code'=>0,'msg'=>'接口测试异常','data'=>null]);
         }
     }
 
