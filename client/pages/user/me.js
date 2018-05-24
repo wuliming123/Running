@@ -8,12 +8,12 @@ Page({
     hf:0,
   },
   onLoad:function(re){
-    if(!wx.getStorageSync('userInfo')){
+    if (!App.globalData.userInfo.token) {
       wx.navigateTo({
         url: '/pages/login/index',
-        success: function(res) {},
-        fail: function(res) {},
-        complete: function(res) {},
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
       })
     }
   },
@@ -24,7 +24,8 @@ Page({
     })
   },
   onShow: function () {
-    if (App.globalData.userInfo.token){//如果用户已经登录
+    if (App.globalData.userInfo.token) {
+      //如果用户已经登录
       let that = this
       let data = {
         "token": App.globalData.userInfo.token,

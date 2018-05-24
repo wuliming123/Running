@@ -1,7 +1,4 @@
-// const Host ='http://localhost/wxrunapi/';
 const Host = 'https://itliming.cn/wxrunapi/';
-// const Host = "http://localhost/running/server/public/index.php/wxrunapi/";
-
 const Login = function(data,callback){
   wx.showLoading({
     title: '登录中...',

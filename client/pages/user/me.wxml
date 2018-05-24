@@ -14,7 +14,7 @@
       </view>
       <view class='weui-grid__label'><text>修改资料</text></view>
     </navigator>
-    <navigator class='weui-grid' data-url=""  catchtap='checklogin'>
+    <navigator class='weui-grid' data-url="/pages/user/myrundata"  catchtap='checklogin'>
       <view class='weui-grid__icon'>
         <image src="../../images/run.png"></image>
       </view>
@@ -51,7 +51,7 @@
       </view>
       <view class='weui-grid__label'><text>我的粉丝</text></view>
     </navigator>
-    <navigator class='weui-grid' data-url="/pages/login/index" wx:if="{{!userInfo.avatarUrl}}">
+    <navigator class='weui-grid' url="/pages/login/index" wx:if="{{!userInfo.avatarUrl}}">
       <view class='weui-grid__icon'>
         <image src="../../images/login.png"></image>
       </view>

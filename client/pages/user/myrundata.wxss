@@ -1,0 +1,15 @@
+page{
+  display: block;
+  background-color: #eee;
+  min-height: 100%;
+  font-size: 14px;
+  font-family: "微软雅黑"; 
+  padding-top:10px; 
+}
+.weui-panel{
+  position:static;
+}
+.weui-media-box__info{
+  padding-top:10px; 
+  border-top:2px dotted #f3f6f8; 
+}

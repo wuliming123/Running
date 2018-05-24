@@ -88,7 +88,7 @@
                           <view class="weui-loadmore__tips weui-loadmore__tips_in-line">还没有发布任何东西~</view>
                       </view>
                   </block>
-                <navigator wx:for="{{hisArticleList}}" url="/pages/index/message?planId={{item.planId}}" class="weui-panel"   hover-class="none" wx:key="key">
+                  <navigator wx:for="{{hisArticleList}}" url="/pages/index/message?planId={{item.planId}}" class="weui-panel"   hover-class="none" wx:key="key">
                     <view class="weui-panel__bd">
                         <view class="weui-media-box weui-media-box_text">
                             <view class="weui-media-box__desc">{{item.content}}</view>
@@ -96,13 +96,31 @@
                                 <view class="weui-media-box__info__meta">赞({{item.zanNum}})</view>
                                 <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">评论({{item.pingNum}})</view>
                                 <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{item.date}}</view>
-                              
                             </view>
                         </view>
                     </view>
                   </navigator>                   
                 </view>
-                <view class="weui-tab__content" hidden="{{activeIndex != 2}}">选项三的内容</view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+                     <block wx:if="{{!hisRunData[0].time}}">
+                    <view class="weui-loadmore weui-loadmore_line" style='margin-top:200px;'>
+                          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">ta有点小懒，还没有运动记录~</view>
+                      </view>
+                  </block>
+                  <navigator wx:for="{{hisRunData}}" class="weui-panel"   hover-class="none" wx:key="key">
+                    <view class="weui-panel__bd">
+                        <view class="weui-media-box weui-media-box_text">
+                            <view class="weui-media-box__desc">{{item.time}}</view>
+                            <view class="weui-media-box__info">
+                                <view class="weui-media-box__info__meta">运动用时：{{item.runtime}}分钟</view>
+                                <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">运动里程：{{item.kilometer}}千米</view>
+                                
+                            </view>
+                        </view>
+                    </view>
+                  </navigator>    
+
+                </view>
             </view>
         </view>
     </view>

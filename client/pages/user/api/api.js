@@ -1,7 +1,4 @@
-// const Host = 'http://localhost/wxrunapi/';
 const Host = 'https://itliming.cn/wxrunapi/';
-// const Host = "http://localhost/running/server/public/index.php/wxrunapi/";
-
 //用户数据获取
 const GetUserInfo = function (data, callback) {
   wx.showLoading({
@@ -332,6 +329,23 @@ const ShowHisPlan = function (data, callback) {
     }
   })
 }
+//获取某个人或自己的运动数据
+const GetRunData = function (data, callback) {
+  wx.request({
+    url: `${Host}Run/getwho`,
+    method: "POST",
+    header: {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    data: data,
+    success: function (res) {
+      return typeof callback == "function" && callback(res.data)
+    },
+    fail: function (error) {
+      return typeof callback == "function" && callback(false)
+    }
+  })
+}
 module.exports = {
   UpHead: UpHead,
   ModifyMyInfo: ModifyMyInfo,
@@ -347,4 +361,5 @@ module.exports = {
   PlAboutMe: PlAboutMe,
   HfAboutMe: HfAboutMe,
   ShowHisPlan: ShowHisPlan,
+  GetRunData:GetRunData
 }

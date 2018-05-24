@@ -13,7 +13,8 @@
     "pages/user/aboutme",
     "pages/dongtai/index",
     "pages/dongtai/run",
-    "pages/login/index"
+    "pages/login/index",
+    "pages/user/myrundata"
   ],
   "window": {
     "backgroundTextStyle": "light",

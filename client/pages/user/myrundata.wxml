@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="page__hd">
+  </view>
+  <view class="page__bd">
+    <block wx:if="{{!myRunList[0].time}}">
+      <view class="weui-loadmore weui-loadmore_line" style='margin-top:200px;'>
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line" style='background:#eee;'>还没有运动过呢~</view>
+        </view>
+    </block>
+   <navigator wx:for="{{myRunList}}"  class="weui-panel"   wx:key="key">
+      <view class="weui-panel__bd">
+          <view class="weui-media-box weui-media-box_text">
+              <view class="weui-media-box__desc">{{item.time}}</view>
+              <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta">运动用时：{{item.runtime}}分钟</view>
+                  <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">运动里程：{{item.kilometer}}千米</view>
+              </view>
+          </view>
+      </view>
+    </navigator> 
+  </view>
+</view>

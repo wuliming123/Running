@@ -1,85 +1,48 @@
+const App = getApp()
+import { getRunList } from "./api/api.js"
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    runtime:999,
-    imageUrl:'/images/user-active.png',
-    readMore:4,
-    showReadMore:false
+    runlist:[]
   },
-
-  openMore:function(){
-    this.setData({
-      readMore:10,
-      showReadMore:true
-    })
-  },
-  takeUp:function(){
-    this.setData({
-      readMore: 4,
-      showReadMore: false
-    })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-    
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    console.log("onReady监听页面初次渲染完成")
-   
-   
   
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
-    console.log("onShow监听页面显示")
+    let that = this
+    getRunList(function(re){
+      that.setData({ runlist : re.data})
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-    console.log("onHide监听页面隐藏")
- 
+  //查看个人资料
+  gotowho: function (e) {
+    if (!App.globalData.userInfo.token) {
+      wx.navigateTo({
+        url: '/pages/login/index',
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
+    }else{
+      var id = e.currentTarget.dataset.id;
+      var name = e.currentTarget.dataset.name;
+      wx.navigateTo({
+        url: `../user/who?id=${id}&title=${name}的主页`
+      })
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-    console.log("onUnload监听页面卸载")
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  //单击开始跑步按钮
+  gotorun: function () {
+    if (!App.globalData.userInfo.token) {
+      wx.navigateTo({
+        url: '/pages/login/index',
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
+    } else {     
+      wx.navigateTo({
+        url: `./run`
+      })
+    }
   }
 })

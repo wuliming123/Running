@@ -1,4 +1,3 @@
-const Api = require("./utils/api.js");
 App({
   onLaunch: function () {
     let that = this;

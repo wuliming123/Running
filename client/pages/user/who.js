@@ -1,4 +1,4 @@
-const Api = require("./api/api.js")
+import { DelGuanzhuUser, AddGuanzhuUser, GetUserInfo, ShowHisPlan, GetRunData } from './api/api.js'
 const App = getApp()
 var sliderWidth = 96 // 需要设置slider的宽度，用于计算中间位置
 Page({
@@ -12,7 +12,8 @@ Page({
     age:'',
     birth:'',
     statusxianghuguanzhu:null,//页面加载后把是否为相互关注状态存储起来。
-    hisArticleList:[]
+    hisArticleList:[],
+    hisRunData: []
   },
   //单击相互关注按钮,调用接口取消关注此人
   tapXianghuGuanzhu: function () {
@@ -23,7 +24,7 @@ Page({
       'id': App.globalData.userInfo.id,
       'userid': that.data.who.id 
     }
-    Api.DelGuanzhuUser(data, function (res) {
+    DelGuanzhuUser(data, function (res) {
       if (res.code) {
         let up = `who.xianghuguanzhu`
         let us = `who.yiguanzhu`
@@ -41,7 +42,7 @@ Page({
       'id': App.globalData.userInfo.id,
       'userid': that.data.who.id
     }
-    Api.AddGuanzhuUser(data, function (res) {
+    AddGuanzhuUser(data, function (res) {
       if (res.code) {
         if (that.data.statusxianghuguanzhu) {
           let up = `who.xianghuguanzhu`
@@ -64,7 +65,7 @@ Page({
       'id': App.globalData.userInfo.id, 
       'userid': that.data.who.id
     }
-    Api.DelGuanzhuUser(data, function (res) {
+    DelGuanzhuUser(data, function (res) {
       if (res.code) {
         let up = `who.xianghuguanzhu`
         let ua = `who.yiguanzhu`
@@ -91,7 +92,7 @@ Page({
       'id': App.globalData.userInfo.id,
       'userid': options.id
     }
-    Api.GetUserInfo(data,function(res){
+    GetUserInfo(data,function(res){
       if (res.code) {
         that.setData({ who: res.data })
         //进入本页面获取用户数据，并把用户有些数据状态起来
@@ -117,7 +118,11 @@ Page({
         });
       }
     });
-    
+
+    let data1 = { userid: options.id }
+    GetRunData(data1, function (re) {
+      that.setData({ hisRunData: re.data })
+    })
   },
   tabClick: function (e) {
     this.setData({
@@ -134,7 +139,7 @@ Page({
   onShow: function () {
     let that = this
     let data = { id: App.globalData.userInfo.id, token: App.globalData.userInfo.token ,userid:that.data.who.id}
-    Api.ShowHisPlan(data, function (re) {
+    ShowHisPlan(data, function (re) {
       that.setData({ hisArticleList: re.data })
     })
   },

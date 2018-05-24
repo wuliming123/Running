@@ -1,8 +1,4 @@
-// const Host = 'http://localhost/wxrunapi/';
 const Host = 'https://itliming.cn/wxrunapi/';
-// const Host = "http://localhost/running/server/public/index.php/wxrunapi/";
-
-//post普通数据传送
 const generalPost = function ( model ,data, callback) {
   wx.showLoading({
     title: '加载中...',
