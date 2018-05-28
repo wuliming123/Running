@@ -5,7 +5,6 @@ Page({
     runlist:[]
   },
   onLoad: function (options) {
-  
   },
   onShow: function () {
     let that = this

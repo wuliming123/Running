@@ -71,6 +71,14 @@ Page({
     stopRun:true
   },
   onLoad: function (options) {
+    wx.startWifi({
+      success: function (res) {
+        console.log(res.errMsg)
+      },
+      fail: function(res){
+        console.log(res);
+      }  
+    })
     var that = this
     wx.getLocation({
       success: function (res) {

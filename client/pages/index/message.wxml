@@ -52,7 +52,7 @@
     <view class='comment-content'>
       <view class='comment-content-head'>
         <text>{{item.nickName}} ({{comment.length - index}}楼)</text>
-        <view class='comment-content-head-body'>{{item.date}}\t来自[{{item.school}}]</view>
+        <view class='comment-content-head-body'>{{item.date}}\t<text wx:if="{{item.school}}">来自[{{item.school}}]</text></view>
       </view>
       <view class='comment-content-body'>
         <text>{{item.content}}</text>
